@@ -1,0 +1,33 @@
+<navbar-financa></navbar-financa>
+<form [formGroup]="form" class="container mt-5" (ngSubmit)="onSubmit()">
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <div>
+        <label for="gasto" class="form-label">Gasto</label>
+        <input type="text" name="gasto" id="gasto" formControlName="gasto" class="form-control">
+      </div>
+      <div class="mt-4 col">
+        <label for="descricao">Descrição</label>
+        <textarea name="descricao" id="descricao"
+          cols="70" rows="10" formControlName="descricao" style="resize: none;" class="form-control"></textarea>
+      </div>
+    </div>
+    <div class="col-6">
+      <div>
+        <label for="valor" class="form-label">Valor</label>
+        <input type="number" name="valor" id="valor" class="form-control" placeholder="R$" formControlName="valor">
+      </div>
+      <div class="mt-5">
+        <input type="checkbox" name="isParcelado" value="'false'" class="form-check-input" formControlName="isParcelado">
+        <label for="isParcelado" class="form-check-label"> Parcelas?</label>
+      </div>
+      <div>
+        <hr>
+        <label for="valorParcelas" class="form-label">Valor das parcelas</label>
+        <input type="number" name="valorParcelas" id="valorParcelas" class="form-control" formControlName="valorParcelas" max="12">
+      </div>
+    </div>
+  </div>
+  <hr>
+  <button class="btn btn-outline-success" type="submit"> Salvar </button>
+</form>

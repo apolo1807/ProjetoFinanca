@@ -1,0 +1,53 @@
+<navbar-financa></navbar-financa>
+<account-static></account-static>
+<hr>
+<form class="container">
+  <p class="lead bg-info text-light p-3 shadow" style="text-align: center;">
+    <strong> Eventuais gastos </strong>
+  </p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Gasto</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Parcelas</th>
+        <th scope="col">Valor</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let financas of financas">
+      <tr>
+        <td>{{ financas.gasto }}</td>
+        <td>{{ financas.descricao }}</td>
+        <td>{{ financas.isParcelado? 'Sim' : 'Não' }} - R${{ financas.parcelas }} </td>
+        <td>R${{ financas.valor }}</td>
+        <td>
+          <button class="btn btn-outline-warning me-1" routerLink="{{ financas.id }}"><i class="fa fa-edit"></i></button>
+          <button class="btn btn-outline-danger" (click)="openModal(financas)" data-bs-toggle="modal" data-bs-target="#openModal"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-outline-success btn-sm" routerLink="new"> Adicionar </button>
+</form>
+<footer class="bg-light text-dark" style="text-align: center;">
+  Gastos do(a) Vitor: <Strong>  </Strong>
+</footer>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="openModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" *ngIf="financaDelete">
+      <div class="modal-header">
+        <h5 class="modal-title">Deletar o gasto {{financaDelete.gasto}}?</h5>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="lead">Deseja realmente deletar este gasto?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" (click)="deletarFinanca(financaDelete)" data-bs-dismiss="modal">Deletar</button>
+      </div>
+  </div>
+</div>
