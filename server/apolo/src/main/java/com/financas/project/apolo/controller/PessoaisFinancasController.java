@@ -2,8 +2,10 @@ package com.financas.project.apolo.controller;
 
 import com.financas.project.apolo.entity.PessoaisFinancas;
 import com.financas.project.apolo.repository.PessoaisFinancasRepository;
+import com.financas.project.apolo.service.PessoaisFinancasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -11,6 +13,7 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/financas/pessoais")
@@ -19,16 +22,12 @@ public class PessoaisFinancasController {
     @Autowired
     private PessoaisFinancasRepository repository;
 
+    @Autowired
+    private PessoaisFinancasService service;
+
     @PostMapping("/new")
     public PessoaisFinancas save(@RequestBody @Valid PessoaisFinancas entity) {
-
-        if(entity.getIsParcelado()) {
-            entity.setParcelas(entity.getValor()
-                    .divide(BigDecimal.valueOf(entity.getValorParcelas()),
-                            2, RoundingMode.HALF_EVEN));
-        }
-
-        return repository.save(entity);
+        return service.intitialize(entity);
     }
 
     @GetMapping

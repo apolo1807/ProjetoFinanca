@@ -15,7 +15,7 @@ export class PessoalFormComponent implements OnInit {
   pessoalFinanca: FinancasPessoais;
   form: FormGroup;
   id: number;
-  hasSaved: false;
+  parcelado: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,

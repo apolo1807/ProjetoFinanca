@@ -13,18 +13,18 @@
       </div>
     </div>
     <div class="col-6">
-      <div>
+      <div class="form-group">
         <label for="valor" class="form-label">Valor</label>
         <input type="number" name="valor" id="valor" class="form-control" placeholder="R$" formControlName="valor">
       </div>
-      <div class="mt-5">
-        <input type="checkbox" name="isParcelado" value="'false'" class="form-check-input" formControlName="isParcelado">
+      <div class="form-check mt-5">
+        <input type="checkbox" name="isParcelado" (change)="parcelado = !parcelado" class="form-check-input" formControlName="isParcelado">
         <label for="isParcelado" class="form-check-label"> Parcelas?</label>
       </div>
-      <div>
+      <div *ngIf="parcelado" class="form-group">
         <hr>
         <label for="valorParcelas" class="form-label">Valor das parcelas</label>
-        <input type="number" name="valorParcelas" id="valorParcelas" class="form-control" formControlName="valorParcelas" max="12">
+        <input type="number" name="valorParcelas" class="form-control" formControlName="valorParcelas">
       </div>
     </div>
   </div>
