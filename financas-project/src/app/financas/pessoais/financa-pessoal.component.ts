@@ -32,7 +32,9 @@ export class FinancaPessoalComponent implements OnInit {
   }
 
   deletarFinanca(financaDelete: any) {
-    this.service.deleteFinanca(financaDelete).subscribe();
+    this.service.deleteFinanca(financaDelete).subscribe(response => {
+      this.getAllFinancas();
+    });
   }
 
 }

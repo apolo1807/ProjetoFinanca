@@ -18,7 +18,7 @@
       <tr>
         <td>{{ financas.gasto }}</td>
         <td>{{ financas.descricao }}</td>
-        <td>{{ financas.isParcelado? 'Sim' : 'Não' }} - {{ financas.valorParcelas }}x(R${{ financas.parcelas }}) </td>
+        <td>{{ financas.isParcelado? 'Sim' : 'Não' }} - {{ financas.valorParcelas }}xR${{ financas.parcelas }} </td>
         <td>R${{ financas.valor }}</td>
         <td>
           <button class="btn btn-outline-warning me-1" routerLink="{{ financas.id }}"><i class="fa fa-edit"></i></button>
@@ -30,7 +30,7 @@
   <button class="btn btn-outline-success btn-sm" routerLink="new"> Adicionar </button>
 </form>
 <footer class="bg-light text-dark" style="text-align: center;">
-  Gastos do(a) Vitor: <Strong>  </Strong>
+  Gastos do(a) Vitor: <Strong> </Strong>
 </footer>
 
 

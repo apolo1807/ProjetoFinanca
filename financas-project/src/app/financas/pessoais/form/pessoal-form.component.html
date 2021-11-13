@@ -1,15 +1,21 @@
 <navbar-financa></navbar-financa>
 <form [formGroup]="form" class="container mt-5" (ngSubmit)="onSubmit()">
   <div class="row justify-content-center">
+    <div class="alert alert-success" role="alert" *ngIf="successResponse">
+      Gasto salvo com sucesso!
+    </div>
+    <div class="alert alert-danger" role="alert" *ngFor="let erro of error">
+      {{ error }}
+    </div>
     <div class="col-6">
       <div>
         <label for="gasto" class="form-label">Gasto</label>
-        <input type="text" name="gasto" id="gasto" formControlName="gasto" class="form-control">
+        <input type="text" name="gasto" id="gasto" formControlName="gasto" class="form-control" maxlength="10" placeholder="ex: Cinema...">
       </div>
       <div class="mt-4 col">
         <label for="descricao">Descrição</label>
         <textarea name="descricao" id="descricao"
-          cols="70" rows="10" formControlName="descricao" style="resize: none;" class="form-control"></textarea>
+          cols="70" rows="10" formControlName="descricao" style="resize: none;" class="form-control" maxlength="50" placeholder="ex: Ver o filme..."></textarea>
       </div>
     </div>
     <div class="col-6">
@@ -18,16 +24,29 @@
         <input type="number" name="valor" id="valor" class="form-control" placeholder="R$" formControlName="valor">
       </div>
       <div class="form-check mt-5">
-        <input type="checkbox" name="isParcelado" (change)="parcelado = !parcelado" class="form-check-input" formControlName="isParcelado">
+        <input type="checkbox" name="isParcelado" class="form-check-input" formControlName="isParcelado">
         <label for="isParcelado" class="form-check-label"> Parcelas?</label>
       </div>
-      <div *ngIf="parcelado" class="form-group">
+      <div class="form-group" *ngIf="this.form.value.isParcelado">
         <hr>
         <label for="valorParcelas" class="form-label">Valor das parcelas</label>
-        <input type="number" name="valorParcelas" class="form-control" formControlName="valorParcelas">
+        <select class="form-select form-select-sm" formControlName="valorParcelas">
+          <option value="2">2x</option>
+          <option value="3">3x</option>
+          <option value="4">4x</option>
+          <option value="5">5x</option>
+          <option value="6">6x</option>
+          <option value="7">7x</option>
+          <option value="8">8x</option>
+          <option value="9">9x</option>
+          <option value="10">10x</option>
+          <option value="11">11x</option>
+          <option value="12">12x</option>
+        </select>
       </div>
     </div>
   </div>
   <hr>
-  <button class="btn btn-outline-success" type="submit"> Salvar </button>
+  <button class="btn btn-outline-success btn-sm" type="submit"> Salvar </button>
+  <button class="btn btn-outline-info btn-sm" type="button" routerLink="/financas/pessoais"> Lista </button>
 </form>

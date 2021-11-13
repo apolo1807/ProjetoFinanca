@@ -15,7 +15,7 @@ public class PessoaisFinancas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "{campo.gasto.obrigatorio}")
     @Column(length = 10)
     private String gasto;
 
@@ -31,7 +31,7 @@ public class PessoaisFinancas {
     @Column
     private Boolean isParcelado = false;
 
-    @NotNull
+    @NotNull(message = "{campo.valor.obrigatorio}")
     @Column
     private BigDecimal valor;
 

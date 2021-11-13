@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { FinancasPessoais } from '../financasPessoaisDomain';
 
@@ -12,10 +13,13 @@ import { FinancasPessoais } from '../financasPessoaisDomain';
 
 export class PessoalFormComponent implements OnInit {
 
+  id: number;
+  isError: boolean = false;
+  parcelado: boolean = false;
+  successResponse: boolean = false;
   pessoalFinanca: FinancasPessoais;
   form: FormGroup;
-  id: number;
-  parcelado: boolean = false;
+  error: String[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,7 +39,7 @@ export class PessoalFormComponent implements OnInit {
 
     const form = this.formBuilder.group({
       id: [''],
-      gasto: [''],
+      gasto: ['', Validators.required],
       descricao: [''],
       parcelas: [''],
       valorParcelas: [''],
@@ -48,21 +52,32 @@ export class PessoalFormComponent implements OnInit {
   }
 
   editarFinanca() {
-    this._activated.params.subscribe(params => {
-      this.id = params['id'],
-      this.service.findById(this.id).subscribe(response => {
-        this.form.setValue(response);
-      })
-    })
+    const params: Observable<Params> = this._activated.params;
+    params.subscribe(urlParams => {
+      this.id = urlParams['id'];
+      if(this.id) {
+        this.service.findById(this.id).subscribe(response => {
+          this.form.setValue(response);
+        })
+      }}
+    );
   }
 
   onSubmit() {
-    this.service.salvar(this.form.value).subscribe();
-    this.comeBack();
-  }
+    this.service.salvar(this.form.value).subscribe(response => {
 
-  comeBack() {
-    this.router.navigateByUrl('financas/pessoais')
+      this.form.reset();
+      this.successResponse = true;
+      this.isError = false;
+    }, errorResponse => {
+
+      this.successResponse = false;
+      this.isError = true;
+
+      if(this.isError) {
+        this.error = errorResponse.error.erros;
+      }
+    });
   }
 
 }
