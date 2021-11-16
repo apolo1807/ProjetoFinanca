@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Optional;
 
 @Service
 public class PessoaisFinancasService {
@@ -23,7 +22,7 @@ public class PessoaisFinancasService {
     public PessoaisFinancas getValorParcelado(PessoaisFinancas entity) {
         if(entity.getIsParcelado()) {
             entity.setParcelas(entity.getValor()
-                    .divide(BigDecimal.valueOf(entity.getValorParcelas())));
+                    .divide(BigDecimal.valueOf(entity.getValorParcelas()), 0, RoundingMode.HALF_UP));
         }
 
         return entity;

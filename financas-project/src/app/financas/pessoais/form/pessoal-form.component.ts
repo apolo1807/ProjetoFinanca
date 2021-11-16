@@ -32,7 +32,15 @@ export class PessoalFormComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.createForm();
-    this.editarFinanca();
+
+    const params: Observable<Params> = this._activated.params;
+    params.subscribe(urlParams => {
+      this.id = urlParams['id'];
+      if(this.id) {
+        this.service.findById(this.id).subscribe(response => {
+          this.form.setValue(response);
+        })
+      }});
   }
 
   createForm():FormGroup {
@@ -49,18 +57,6 @@ export class PessoalFormComponent implements OnInit {
     });
 
     return form;
-  }
-
-  editarFinanca() {
-    const params: Observable<Params> = this._activated.params;
-    params.subscribe(urlParams => {
-      this.id = urlParams['id'];
-      if(this.id) {
-        this.service.findById(this.id).subscribe(response => {
-          this.form.setValue(response);
-        })
-      }}
-    );
   }
 
   onSubmit() {

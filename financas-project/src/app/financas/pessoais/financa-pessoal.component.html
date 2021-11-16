@@ -18,11 +18,15 @@
       <tr>
         <td>{{ financas.gasto }}</td>
         <td>{{ financas.descricao }}</td>
-        <td>{{ financas.isParcelado? 'Sim' : 'Não' }} - {{ financas.valorParcelas }}xR${{ financas.parcelas }} </td>
+        <td>{{ financas.isParcelado? 'Sim' : 'Não' }}
+          <span *ngIf="financas.isParcelado">
+            - {{ financas.valorParcelas }}x R${{ financas.parcelas }}
+          </span>
+        </td>
         <td>R${{ financas.valor }}</td>
         <td>
-          <button class="btn btn-outline-warning me-1" routerLink="{{ financas.id }}"><i class="fa fa-edit"></i></button>
-          <button class="btn btn-outline-danger" (click)="openModal(financas)" data-bs-toggle="modal" data-bs-target="#openModal"><i class="fa fa-trash"></i></button>
+          <button class="btn btn-outline-warning btn-sm me-1" routerLink="{{ financas.id }}"><i class="fa fa-edit"></i></button>
+          <button class="btn btn-outline-danger btn-sm" (click)="openModal(financas)" data-bs-toggle="modal" data-bs-target="#openModal"><i class="fa fa-trash"></i></button>
         </td>
       </tr>
     </tbody>

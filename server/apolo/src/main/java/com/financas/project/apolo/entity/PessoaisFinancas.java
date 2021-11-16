@@ -25,17 +25,16 @@ public class PessoaisFinancas {
     @Column
     private BigDecimal parcelas;
 
-    @Column(length = 12)
+    @Column(name = "valor_parcelas" ,length = 12)
     private Integer valorParcelas;
 
-    @Column
+    @Column(name = "is_parcelado")
     private Boolean isParcelado = false;
 
     @NotNull(message = "{campo.valor.obrigatorio}")
     @Column
     private BigDecimal valor;
 
-    @NotNull
     @Column
     private BigDecimal total;
 }

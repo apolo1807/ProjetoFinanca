@@ -5,15 +5,11 @@ import com.financas.project.apolo.repository.PessoaisFinancasRepository;
 import com.financas.project.apolo.service.PessoaisFinancasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/financas/pessoais")
@@ -36,7 +32,7 @@ public class PessoaisFinancasController {
     }
 
     @GetMapping("{id}")
-    public PessoaisFinancas findById(@PathVariable Long id) {
+    public PessoaisFinancas findById(@PathVariable("id") long id) {
         return repository.findById(id)
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND, "Finança não encontrada"));

@@ -1,6 +1,5 @@
 package com.financas.project.apolo.controller.advice;
 
-import com.financas.project.apolo.config.ErrorsConfig;
 import com.financas.project.apolo.exceptions.ErrorsHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
