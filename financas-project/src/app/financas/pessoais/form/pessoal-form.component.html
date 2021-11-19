@@ -1,12 +1,15 @@
 <navbar-financa></navbar-financa>
 <form [formGroup]="form" class="container mt-5" (ngSubmit)="onSubmit()">
   <div class="row justify-content-center">
+
     <div class="alert alert-success" role="alert" *ngIf="successResponse">
       Gasto salvo com sucesso!
     </div>
+
     <div class="alert alert-danger" role="alert" *ngFor="let erro of error">
       {{ error }}
     </div>
+
     <div class="col-6">
       <div>
         <label for="gasto" class="form-label">Gasto</label>
@@ -23,7 +26,11 @@
         <label for="valor" class="form-label">Valor</label>
         <input type="number" name="valor" id="valor" class="form-control" placeholder="R$" formControlName="valor">
       </div>
-      <div class="form-check mt-5">
+      <div class="mt-5">
+        <label for="dataInicio" class="form-label">Data </label>
+        <input type="date" name="dataInicio" id="dataInicio" class="form-control" formControlName="dataInicio">
+      </div>
+      <div class="form-check mt-3">
         <input type="checkbox" name="isParcelado" class="form-check-input" formControlName="isParcelado">
         <label for="isParcelado" class="form-check-label"> Parcelas?</label>
       </div>

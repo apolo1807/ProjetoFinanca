@@ -6,5 +6,7 @@ export class FinancasPessoais {
   isParcelado: boolean;
   valorParcelas: number;
   valor: number;
+  dataInicio: Date;
+  dataFim: Date;
   total: number;
 }

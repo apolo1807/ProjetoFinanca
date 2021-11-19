@@ -11,6 +11,7 @@
         <th scope="col">Gasto</th>
         <th scope="col">Descrição</th>
         <th scope="col">Parcelas</th>
+        <th scope="col">Inicio - Final</th>
         <th scope="col">Valor</th>
       </tr>
     </thead>
@@ -21,6 +22,12 @@
         <td>{{ financas.isParcelado? 'Sim' : 'Não' }}
           <span *ngIf="financas.isParcelado">
             - {{ financas.valorParcelas }}x R${{ financas.parcelas }}
+          </span>
+        </td>
+        <td>
+          {{ financas.dataInicio | date:'dd/MM/yyyy' }}
+          <span *ngIf="financas.isParcelado">
+            - {{ financas.dataFim | date:'dd/MM/yyyy' }}
           </span>
         </td>
         <td>R${{ financas.valor }}</td>

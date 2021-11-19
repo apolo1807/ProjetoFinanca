@@ -16,9 +16,6 @@ export class ChartComponent {
   public barChartType = 'bar';
   public barChartLegend = true;  public barChartData = [
     {data: [7.99, 7.65, 7.22, 5.07, 5.25 ], label: 'Valores(% ao ano)'}
-  ];  ngOnInit() {
-  }
+  ];  ngOnInit() { }
 
-
-
-  }
+}

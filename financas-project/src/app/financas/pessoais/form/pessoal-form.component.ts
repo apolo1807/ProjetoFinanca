@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Data, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { FinancasPessoais } from '../financasPessoaisDomain';
@@ -15,7 +15,6 @@ export class PessoalFormComponent implements OnInit {
 
   id: number;
   isError: boolean = false;
-  parcelado: boolean = false;
   successResponse: boolean = false;
   pessoalFinanca: FinancasPessoais;
   form: FormGroup;
@@ -24,8 +23,7 @@ export class PessoalFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private service: AppService,
-    private _activated: ActivatedRoute,
-    private router: Router)
+    private _activated: ActivatedRoute)
     {
       this.pessoalFinanca = new FinancasPessoais();
     }
@@ -53,15 +51,20 @@ export class PessoalFormComponent implements OnInit {
       valorParcelas: [''],
       isParcelado: [false],
       valor: ['', Validators.required],
+      dataInicio: [''],
+      dataFim: [''],
       total: ['1000'],
     });
+
+    if(form.get('isParcelado')?.value) {
+      form.get('valorParcelas')?.addValidators([Validators.required]);
+    }
 
     return form;
   }
 
   onSubmit() {
     this.service.salvar(this.form.value).subscribe(response => {
-
       this.form.reset();
       this.successResponse = true;
       this.isError = false;

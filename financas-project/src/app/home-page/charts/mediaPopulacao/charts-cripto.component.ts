@@ -15,9 +15,5 @@ export class ChartCriptomoedaComponent {
   public barChartLabels = ['Bitcoin', 'Ethereum', 'XRP', 'Litecoin', 'EOS'];
   public barChartLegend = true;  public barChartData = [
     {data: [335991.82, 24337.95, 6.28, 1076.40, 24.38 ], label: 'Preço'}
-  ];  ngOnInit() {
-  }
-
-
-
-  }
+  ];  ngOnInit() { }
+}

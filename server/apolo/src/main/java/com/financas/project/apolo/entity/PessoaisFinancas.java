@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -34,6 +35,12 @@ public class PessoaisFinancas {
     @NotNull(message = "{campo.valor.obrigatorio}")
     @Column
     private BigDecimal valor;
+
+    @Column(name = "data_inicio")
+    private LocalDate dataInicio;
+
+    @Column(name = "data_fim")
+    private LocalDate dataFim;
 
     @Column
     private BigDecimal total;

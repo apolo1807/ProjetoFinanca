@@ -16,6 +16,7 @@ import { PessoalFormComponent } from './financas/pessoais/form/pessoal-form.comp
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from './app.service';
 import { HttpClientModule } from '@angular/common/http';
+import { PipeModule } from './shared/Validators/pipe.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     FinancaPessoalComponent,
     FinancaEmpresarialComponent,
     NavbarFinancaComponent,
-    PessoalFormComponent
+    PessoalFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     NgChartsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    PipeModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent]
