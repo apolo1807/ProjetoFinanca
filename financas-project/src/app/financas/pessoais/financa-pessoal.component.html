@@ -21,7 +21,7 @@
         <td>{{ financas.descricao }}</td>
         <td>{{ financas.isParcelado? 'Sim' : 'Não' }}
           <span *ngIf="financas.isParcelado">
-            - {{ financas.valorParcelas }}x R${{ financas.parcelas }}
+            - {{ financas.valorParcelas }}x {{ financas.parcelas | currency: 'R$'}}
           </span>
         </td>
         <td>
@@ -30,7 +30,7 @@
             - {{ financas.dataFim | date:'dd/MM/yyyy' }}
           </span>
         </td>
-        <td>R${{ financas.valor }}</td>
+        <td>{{ financas.valor | currency: 'R$' }}</td>
         <td>
           <button class="btn btn-outline-warning btn-sm me-1" routerLink="{{ financas.id }}"><i class="fa fa-edit"></i></button>
           <button class="btn btn-outline-danger btn-sm" (click)="openModal(financas)" data-bs-toggle="modal" data-bs-target="#openModal"><i class="fa fa-trash"></i></button>

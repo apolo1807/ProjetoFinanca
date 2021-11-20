@@ -6,15 +6,14 @@
       Gasto salvo com sucesso!
     </div>
 
-    <div class="alert alert-danger" role="alert" *ngFor="let erro of error">
-      {{ error }}
-    </div>
-
     <div class="col-6">
       <div>
-        <label for="gasto" class="form-label">Gasto</label>
+        <label for="gasto" class="form-label">Gasto <span class="text-danger"> * </span> </label>
         <input type="text" name="gasto" id="gasto" formControlName="gasto" class="form-control" maxlength="10" placeholder="ex: Cinema...">
       </div>
+      <span *ngIf="form.controls['gasto'].errors" class="text-danger mt-1" style="font-size: 10px;">
+          Campo necessário
+      </span>
       <div class="mt-4 col">
         <label for="descricao">Descrição</label>
         <textarea name="descricao" id="descricao"
@@ -23,12 +22,25 @@
     </div>
     <div class="col-6">
       <div class="form-group">
-        <label for="valor" class="form-label">Valor</label>
-        <input type="number" name="valor" id="valor" class="form-control" placeholder="R$" formControlName="valor">
+        <label for="valor" class="form-label">Valor <span class="text-danger"> * </span> </label>
+        <input type="number" name="valor" id="valor" class="form-control" placeholder="R$" formControlName="valor" min="1" max="5000">
       </div>
+      <span *ngIf="form.controls['valor'].errors?.['required']" class="text-danger mt-1" style="font-size: 10px;">
+        Campo obrigatório
+      </span>
+
+      <span *ngIf="form.controls['valor'].errors?.['max'] || form.controls['valor'].errors?.['min']" class="text-danger mt-1" style="font-size: 10px;">
+        Valor deve ser um número maior que R$1 e menor que R$5000,00
+      </span>
       <div class="mt-5">
-        <label for="dataInicio" class="form-label">Data </label>
-        <input type="date" name="dataInicio" id="dataInicio" class="form-control" formControlName="dataInicio">
+        <label for="dataInicio" class="form-label">Data
+
+          <a tooltip="Caso a data não for inserida, será considerada a atual" class="text-info">
+            <i class="fa fa-info-circle"></i>
+          </a>
+
+          </label>
+        <input type="date" name="dataInicio" id="dataInicio" class="form-control" formControlName="dataInicio" min="2005-01-01">
       </div>
       <div class="form-check mt-3">
         <input type="checkbox" name="isParcelado" class="form-check-input" formControlName="isParcelado">
@@ -36,7 +48,7 @@
       </div>
       <div class="form-group" *ngIf="this.form.value.isParcelado">
         <hr>
-        <label for="valorParcelas" class="form-label">Valor das parcelas</label>
+        <label for="valorParcelas" class="form-label">Valor das parcelas <span class="text-danger"> * </span></label>
         <select class="form-select form-select-sm" formControlName="valorParcelas">
           <option value="2">2x</option>
           <option value="3">3x</option>
@@ -50,10 +62,14 @@
           <option value="11">11x</option>
           <option value="12">12x</option>
         </select>
+
+        <span *ngIf="form.controls['valorParcelas'].pristine" class="text-danger mt-1" style="font-size: 10px;">
+          Quando se opta por parcelas, a quantidade deve ser inserida!
+        </span>
       </div>
     </div>
   </div>
   <hr>
-  <button class="btn btn-outline-success btn-sm" type="submit"> Salvar </button>
+  <button class="btn btn-outline-success btn-sm" type="submit" [disabled]="!form.valid"> Salvar </button>
   <button class="btn btn-outline-info btn-sm" type="button" routerLink="/financas/pessoais"> Lista </button>
 </form>

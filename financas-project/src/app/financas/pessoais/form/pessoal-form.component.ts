@@ -14,11 +14,9 @@ import { FinancasPessoais } from '../financasPessoaisDomain';
 export class PessoalFormComponent implements OnInit {
 
   id: number;
-  isError: boolean = false;
   successResponse: boolean = false;
   pessoalFinanca: FinancasPessoais;
   form: FormGroup;
-  error: String[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -57,7 +55,7 @@ export class PessoalFormComponent implements OnInit {
     });
 
     if(form.get('isParcelado')?.value) {
-      form.get('valorParcelas')?.addValidators([Validators.required]);
+      form.get('valorParcelas')?.setValidators([Validators.required]);
     }
 
     return form;
@@ -67,15 +65,6 @@ export class PessoalFormComponent implements OnInit {
     this.service.salvar(this.form.value).subscribe(response => {
       this.form.reset();
       this.successResponse = true;
-      this.isError = false;
-    }, errorResponse => {
-
-      this.successResponse = false;
-      this.isError = true;
-
-      if(this.isError) {
-        this.error = errorResponse.error.erros;
-      }
     });
   }
 

@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from './app.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PipeModule } from './shared/Validators/pipe.module';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { PipeModule } from './shared/Validators/pipe.module';
   ],
   imports: [
     BrowserModule,
+    TooltipModule.forRoot(),
     AppRoutingModule,
     NgChartsModule,
     ReactiveFormsModule,
