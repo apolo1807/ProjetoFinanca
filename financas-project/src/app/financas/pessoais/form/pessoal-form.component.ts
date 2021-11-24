@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Data, Params, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Params } from '@angular/router';
+import * as moment from 'moment';
+import { concat, Observable } from 'rxjs';
 import { AppService } from 'src/app/app.service';
+import { DataCurrentyYear } from 'src/app/shared/Validators/dataCurrentyYear.validator';
 import { FinancasPessoais } from '../financasPessoaisDomain';
 
 @Component({
@@ -14,6 +16,7 @@ import { FinancasPessoais } from '../financasPessoaisDomain';
 export class PessoalFormComponent implements OnInit {
 
   id: number;
+  year:any = moment().year();
   isEdit: boolean = false;
   successResponse: boolean = false;
   pessoalFinanca: FinancasPessoais;
@@ -56,18 +59,30 @@ export class PessoalFormComponent implements OnInit {
       total: ['1000'],
     });
 
+    const dataInicio = form.get('dataInicio');
+
     if(form.get('isParcelado')?.value) {
       form.get('valorParcelas')?.setValidators([Validators.required]);
     }
+
+    dataInicio?.valueChanges.subscribe(r => {
+      dataInicio.setValidators([DataCurrentyYear]);
+    })
 
     return form;
   }
 
   onSubmit() {
     this.service.salvar(this.form.value).subscribe(response => {
-      this.form.reset();
+
+      if(!this.isEdit) {
+        this.form.reset();
+      }
+
       this.successResponse = true;
+      setTimeout(() => {
+        this.successResponse = false;
+      }, 2500)
     });
   }
-
 }
