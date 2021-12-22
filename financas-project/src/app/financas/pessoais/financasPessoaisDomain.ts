@@ -8,5 +8,6 @@ export class FinancasPessoais {
   valor: number;
   dataInicio: Date;
   dataFim: Date;
+  totalRenda: number;
   total: number;
 }

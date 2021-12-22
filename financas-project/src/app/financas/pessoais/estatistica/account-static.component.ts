@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AppService } from 'src/app/app.service';
+import { FinancasPessoais } from '../financasPessoaisDomain';
 
 @Component({
   selector: 'account-static',
@@ -7,7 +10,34 @@ import { Component, OnInit } from '@angular/core';
 
 export class AccountStaticsComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup;
+  financas: FinancasPessoais[] = [];
 
-  ngOnInit() { }
+  constructor(
+    private service: AppService,
+    private _formBuilder: FormBuilder
+  ) { }
+
+  ngOnInit() {
+    this.getValor();
+    this.form = this.createForm();
+  }
+
+  createForm(): FormGroup {
+
+    const form = this._formBuilder.group({
+      "totalRenda": ['']
+    })
+
+    return form;
+  }
+
+  getValor() {
+    this.service.getFinancas().subscribe(response => {
+      console.log(response);
+
+    })
+  }
+
+
 }

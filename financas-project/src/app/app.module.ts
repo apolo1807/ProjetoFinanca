@@ -5,7 +5,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChartComponent } from './home-page/charts/investimentos/charts.component';
-import { ChartCriptomoedaComponent } from './home-page/charts/mediaPopulacao/charts-cripto.component';
+import { ChartCriptomoedaComponent } from './home-page/charts/crypto/charts-cripto.component';
 import { AccountStaticsComponent } from './financas/pessoais/estatistica/account-static.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { NavbarComponent } from './home-page/navbar/navbar.component';
@@ -18,6 +18,9 @@ import { AppService } from './app.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PipeModule } from './shared/Validators/pipe.module';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { RendaFormComponent } from './financas/pessoais/renda/form/renda-form.component';
+import { RendaListComponent } from './financas/pessoais/renda/renda-list/renda-list.component';
+import { ValorDolarComponent } from './shared/notification/valor-dolar/valor-dolar.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     FinancaEmpresarialComponent,
     NavbarFinancaComponent,
     PessoalFormComponent,
+    RendaFormComponent,
+    RendaListComponent,
+    ValorDolarComponent,
   ],
   imports: [
     BrowserModule,

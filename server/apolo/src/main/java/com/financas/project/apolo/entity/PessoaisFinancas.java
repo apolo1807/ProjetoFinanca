@@ -1,12 +1,15 @@
 package com.financas.project.apolo.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -41,6 +44,9 @@ public class PessoaisFinancas {
 
     @Column(name = "data_fim")
     private LocalDate dataFim;
+
+    @Transient
+    private BigDecimal totalRenda;
 
     @Column
     private BigDecimal total;

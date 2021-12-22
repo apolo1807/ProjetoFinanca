@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 
 export class NavbarComponent implements OnInit {
 
+  ativadoDolar: boolean = false;
+
   constructor() { }
 
   ngOnInit() { }
+
+  ativar() {
+    this.ativadoDolar = !this.ativadoDolar;
+  }
 }
