@@ -14,6 +14,7 @@ export class FinancaPessoalComponent implements OnInit {
   financaInicialize: FinancasPessoais;
   financaDelete: FinancasPessoais;
   financas: FinancasPessoais[] = [];
+  total: number;
 
   constructor(private service: AppService) {this.financaInicialize = new FinancasPessoais()}
 
@@ -23,6 +24,7 @@ export class FinancaPessoalComponent implements OnInit {
 
   getAllFinancas() {
     this.service.getFinancas().subscribe(response => {
+      this.total = response[0].total;
       this.financas = response;
     })
   }
@@ -32,7 +34,7 @@ export class FinancaPessoalComponent implements OnInit {
   }
 
   deletarFinanca(financaDelete: any) {
-    this.service.deleteFinanca(financaDelete).subscribe(response => {
+    this.service.deleteFinanca(financaDelete).subscribe(() => {
       this.getAllFinancas();
     });
   }

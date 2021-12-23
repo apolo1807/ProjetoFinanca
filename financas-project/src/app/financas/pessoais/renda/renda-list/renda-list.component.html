@@ -20,8 +20,8 @@
           <td>{{ rendas.tipoRenda == "Ativa" ? rendas.ativa : rendas.passiva }}</td>
           <td>{{ rendas.valor | currency: 'R$' }}</td>
           <td>
-            <button class="btn btn-outline-warning btn-sm me-1"><i class="fa fa-edit"></i></button>
-            <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#openModal"><i class="fa fa-trash"></i></button>
+            <button class="btn btn-outline-warning btn-sm me-1" routerLink="{{ rendas.id }}"><i class="fa fa-edit"></i></button>
+            <button class="btn btn-outline-danger btn-sm" (click)="openModal(rendas)" data-bs-toggle="modal" data-bs-target="#openModal"><i class="fa fa-trash"></i></button>
           </td>
         </tr>
       </tbody>
@@ -29,4 +29,22 @@
     <button class="btn btn-outline-success btn-sm" routerLink="/financas/pessoais/renda/new"> Adicionar </button>
     <button class="btn btn-outline-info btn-sm" routerLink="/financas/pessoais"> Gasto </button>
   </form>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="openModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" *ngIf="rendaDelete">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ rendaDelete.tipoRenda }} - {{rendaDelete.descricao}}</h5>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="lead">Deseja realmente deletar esta renda?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" (click)="deletarRenda(rendaDelete)" data-bs-dismiss="modal">Deletar</button>
+      </div>
+  </div>
 </div>

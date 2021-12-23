@@ -10,8 +10,9 @@ export const routes: Routes = [
   {path: 'financas/pessoais', component: FinancaPessoalComponent},
   {path: 'financas/pessoais/new', component: PessoalFormComponent},
   {path: 'financas/pessoais/:id', component: PessoalFormComponent},
-  {path: 'financas/pessoais/renda/list', component: RendaListComponent },
+  {path: 'financas/pessoais/renda/list', component: RendaListComponent},
   {path: 'financas/pessoais/renda/new', component: RendaFormComponent},
+  {path: 'financas/pessoais/renda/list/:id', component: RendaFormComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', component: HomePageComponent},
 ]

@@ -1,7 +1,6 @@
 package com.financas.project.apolo.service;
 
 import com.financas.project.apolo.entity.PessoaisFinancas;
-import com.financas.project.apolo.entity.RendaFixa;
 import com.financas.project.apolo.repository.PessoaisFinancasRepository;
 import com.financas.project.apolo.repository.RendaFixaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,7 +24,6 @@ public class PessoaisFinancasService {
     public PessoaisFinancas intitialize(PessoaisFinancas entity) {
         getValorParcelado(entity);
         calcularFinalParcelas(entity);
-        getTotalRenda(entity);
         return repository.save(entity);
     }
 
@@ -37,11 +34,6 @@ public class PessoaisFinancasService {
         }
 
         return entity;
-    }
-
-    public void getTotalRenda(PessoaisFinancas entity) {
-
-        entity.setTotalRenda(rendaRepository.getTotal());
     }
 
     public PessoaisFinancas calcularFinalParcelas(PessoaisFinancas entity) {

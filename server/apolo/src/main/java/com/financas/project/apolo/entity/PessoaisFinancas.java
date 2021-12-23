@@ -1,15 +1,17 @@
 package com.financas.project.apolo.entity;
 
+import com.financas.project.apolo.repository.RendaFixaRepository;
+import com.financas.project.apolo.service.PessoaisFinancasService;
+import com.financas.project.apolo.service.RendaFixaService;
 import lombok.Data;
 import org.hibernate.annotations.Formula;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
@@ -45,9 +47,12 @@ public class PessoaisFinancas {
     @Column(name = "data_fim")
     private LocalDate dataFim;
 
-    @Transient
-    private BigDecimal totalRenda;
+    @Formula(value = "(select sum(rf.valor) from renda_fixa rf)")
+    private BigDecimal totalRenda = BigDecimal.ZERO;
 
-    @Column
+    @Column(name = "estado_renda")
+    private Boolean estadoRenda;
+
+    @Formula(value = "(select sum(pf.valor) from pessoais_financas pf)")
     private BigDecimal total;
 }

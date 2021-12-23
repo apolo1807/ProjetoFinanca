@@ -14,11 +14,19 @@ export class RendaService {
   constructor(private httpClient: HttpClient) { }
 
   salvarRenda(renda: Renda):Observable<Renda> {
-    return this.httpClient.post<Renda>(`${this.apiRenda}/new`, renda)
+    return this.httpClient.post<Renda>(`${this.apiRenda}/new`, renda);
   }
 
   getRendas():Observable<Renda[]> {
     return this.httpClient.get<Renda[]>(`${this.apiRenda}`);
+  }
+
+  findById(id: number):Observable<Renda> {
+    return this.httpClient.get<Renda>(`${this.apiRenda}/${id}`);
+  }
+
+  delete(renda: Renda):Observable<Renda> {
+    return this.httpClient.delete<Renda>(`${this.apiRenda}/${renda.id}`);
   }
 
 }

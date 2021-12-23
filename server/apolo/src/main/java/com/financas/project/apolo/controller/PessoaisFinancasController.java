@@ -2,6 +2,7 @@ package com.financas.project.apolo.controller;
 
 import com.financas.project.apolo.entity.PessoaisFinancas;
 import com.financas.project.apolo.repository.PessoaisFinancasRepository;
+import com.financas.project.apolo.repository.RendaFixaRepository;
 import com.financas.project.apolo.service.PessoaisFinancasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

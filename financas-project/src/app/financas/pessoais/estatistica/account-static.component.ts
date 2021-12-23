@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppService } from 'src/app/app.service';
 import { FinancasPessoais } from '../financasPessoaisDomain';
+import { RendaService } from '../renda/renda.service';
 
 @Component({
   selector: 'account-static',
@@ -10,34 +11,16 @@ import { FinancasPessoais } from '../financasPessoaisDomain';
 
 export class AccountStaticsComponent implements OnInit {
 
-  form: FormGroup;
-  financas: FinancasPessoais[] = [];
+  constructor(private service: AppService) { }
 
-  constructor(
-    private service: AppService,
-    private _formBuilder: FormBuilder
-  ) { }
+  rendaFixa: number;
 
   ngOnInit() {
-    this.getValor();
-    this.form = this.createForm();
+    this.getRendaFixa();
   }
 
-  createForm(): FormGroup {
-
-    const form = this._formBuilder.group({
-      "totalRenda": ['']
-    })
-
-    return form;
+  getRendaFixa() {
+    this.service.getFinancas().subscribe(valor => this.rendaFixa = valor[0].totalRenda);
   }
-
-  getValor() {
-    this.service.getFinancas().subscribe(response => {
-      console.log(response);
-
-    })
-  }
-
 
 }

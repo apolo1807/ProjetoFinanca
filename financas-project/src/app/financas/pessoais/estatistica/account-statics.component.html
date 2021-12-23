@@ -6,7 +6,7 @@
           Renda
         </div>
         <div class="card-body shadow bg-light text-dark">
-          R$900,00
+          {{ rendaFixa | currency: 'R$' }}
           <button class="btn btn-success btn-sm float-end" routerLink="/financas/pessoais/renda/list"><i class="fa fa-edit"></i></button>
         </div>
         <div class="card-footer text-danger shadow bg-light">

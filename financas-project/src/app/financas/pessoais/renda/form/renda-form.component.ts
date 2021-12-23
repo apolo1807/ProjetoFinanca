@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Observable } from 'rxjs';
 import { RendaService } from '../renda.service';
 
 @Component({
@@ -10,19 +12,32 @@ import { RendaService } from '../renda.service';
 export class RendaFormComponent implements OnInit {
 
   form: FormGroup;
+  id: number;
 
   constructor(
     private formBuilder: FormBuilder,
-    private service: RendaService
+    private service: RendaService,
+    private _activated: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.form = this.createForm();
+
+    const params: Observable<Params> = this._activated.params;
+    params.subscribe(urlParams => {
+      this.id = urlParams['id'];
+      if(this.id) {
+        this.service.findById(this.id).subscribe(response => {
+          this.form.setValue(response);
+        })
+      }
+    })
   }
 
   createForm():FormGroup {
 
     const form = this.formBuilder.group({
+      id: [''],
       descricao: ['', Validators.required],
       tipoRenda: ['', Validators.required],
       ativa: [''],
@@ -52,10 +67,6 @@ export class RendaFormComponent implements OnInit {
     }, error => {
 
     })
-  }
-
-  compareWith() {
-    return this.form.get('tipoRenda')?.value == "id";
   }
 
 }

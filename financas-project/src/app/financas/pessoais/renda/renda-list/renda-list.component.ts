@@ -11,6 +11,7 @@ export class RendaListComponent implements OnInit {
 
   rendas: Renda[] = [];
   rendasInitialize: Renda;
+  rendaDelete: Renda;
 
   constructor(private service: RendaService) { this.rendasInitialize = new Renda() }
 
@@ -21,6 +22,16 @@ export class RendaListComponent implements OnInit {
   getAllRenda() {
     this.service.getRendas().subscribe(response => {
       this.rendas = response;
+    })
+  }
+
+  openModal(rendaModal: Renda){
+    this.rendaDelete = rendaModal;
+  }
+
+  deletarRenda(renda: any) {
+    this.service.delete(renda).subscribe(() => {
+      this.getAllRenda();
     })
   }
 

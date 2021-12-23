@@ -54,6 +54,7 @@ export class PessoalFormComponent implements OnInit {
       valorParcelas: [''],
       isParcelado: [false],
       valor: ['', Validators.required],
+      totalRenda: [''],
       dataInicio: [''],
       dataFim: [''],
       total: ['1000'],
