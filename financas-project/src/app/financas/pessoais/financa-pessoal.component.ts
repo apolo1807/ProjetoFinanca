@@ -15,6 +15,7 @@ export class FinancaPessoalComponent implements OnInit {
   financaDelete: FinancasPessoais;
   financas: FinancasPessoais[] = [];
   total: number;
+  totalMensal: number;
 
   constructor(private service: AppService) {this.financaInicialize = new FinancasPessoais()}
 
@@ -24,6 +25,25 @@ export class FinancaPessoalComponent implements OnInit {
 
   getAllFinancas() {
     this.service.getFinancas().subscribe(response => {
+
+      let debito = 0;
+
+      response.forEach(values => {
+
+        console.log(values);
+
+
+        if(values.isParcelado) {
+          debito += values.parcelas;
+        }
+
+        if(!values.isParcelado) {
+          debito += values.total;
+        }
+
+      });
+
+      this.totalMensal = debito;
       this.total = response[0].total;
       this.financas = response;
     })

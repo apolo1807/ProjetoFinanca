@@ -9,9 +9,20 @@
           {{ rendaFixa | currency: 'R$' }}
           <button class="btn btn-success btn-sm float-end" routerLink="/financas/pessoais/renda/list"><i class="fa fa-edit"></i></button>
         </div>
-        <div class="card-footer text-danger shadow bg-light">
-          <strong> Insuficiente </strong>
+
+        <div class="card-footer text-success shadow bg-light" *ngIf="suficiente">
+          <strong> Suficiente </strong>
         </div>
+
+        <div class="card-footer text-danger shadow bg-light" *ngIf="!suficiente">
+          <strong> Insuficiente </strong>
+
+          <a tooltip="Valor dos gastos mensais é menor do que a renda" class="text-danger">
+            <i class="fa fa-info-circle"></i>
+          </a>
+
+        </div>
+
       </div>
     </div>
     <div class="col-6">

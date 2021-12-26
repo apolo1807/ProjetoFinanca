@@ -50,9 +50,6 @@ public class PessoaisFinancas {
     @Formula(value = "(select sum(rf.valor) from renda_fixa rf)")
     private BigDecimal totalRenda = BigDecimal.ZERO;
 
-    @Column(name = "estado_renda")
-    private Boolean estadoRenda;
-
     @Formula(value = "(select sum(pf.valor) from pessoais_financas pf)")
     private BigDecimal total;
 }

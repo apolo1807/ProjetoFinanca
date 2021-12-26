@@ -41,7 +41,8 @@
   <button class="btn btn-outline-success btn-sm" routerLink="new"> Adicionar </button>
 </form>
 <footer class="bg-light text-dark" style="text-align: center;">
-  Total Gastos: <Strong> {{ total | currency: 'R$' }} </Strong>
+  <p>Total Gastos: <Strong> {{ total | currency: 'R$' }} </Strong></p>
+  <p>Total Gastos Mensais: <Strong> {{ totalMensal | currency: 'R$' }} </Strong></p>
 </footer>
 
 
