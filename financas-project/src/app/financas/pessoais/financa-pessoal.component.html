@@ -30,11 +30,11 @@
           </span>
 
           <a tooltip="Gasto já foi pago" class="text-success" *ngIf="financas.tipoEstadoGasto == 'PAGO'">
-            <i class="fa fa-info-circle"></i>
+            <i class="bi bi-check"></i>
           </a>
 
           <a tooltip="Gasto ainda não foi pago" class="text-warning" *ngIf="financas.tipoEstadoGasto == 'PENDENTE'">
-            <i class="fa fa-info-circle"></i>
+            <i class="bi bi-info-circle-fill"></i>
           </a>
 
         </td>
@@ -46,19 +46,20 @@
         </td>
         <td>{{ financas.valor | currency: 'R$' }}</td>
         <td>
-          <button class="btn btn-outline-warning btn-sm me-1" routerLink="{{ financas.id }}"><i class="fa fa-edit"></i></button>
-          <button class="btn btn-outline-danger btn-sm me-1" (click)="openModal(financas)" data-bs-toggle="modal" data-bs-target="#openModal"><i class="fa fa-trash"></i></button>
+          <button class="btn btn-outline-warning btn-sm me-1" routerLink="{{ financas.id }}"><i class="bi bi-pencil-square"></i></button>
+          <button class="btn btn-outline-danger btn-sm me-1" (click)="openModal(financas)" data-bs-toggle="modal" data-bs-target="#openModal"><i class="bi bi-trash"></i></button>
           <button class="btn btn-outline-success btn-sm" *ngIf="financas.tipoEstadoGasto == 'PENDENTE'" (click)="declararPago(financas)"> Pago </button>
         </td>
       </tr>
     </tbody>
   </table>
-  <button class="btn btn-outline-success btn-sm" routerLink="new"> Adicionar </button>
+  <button class="btn btn-outline-success btn-sm" routerLink="new"><i class="bi bi-save"></i> Adicionar </button>
 </form>
-<footer class="bg-light text-dark" style="text-align: center;">
-  <p>Total Gastos: <Strong> {{ total | currency: 'R$' }} </Strong></p>
-  <p class="text-warning">Total Gastos Mensais: <Strong> {{ totalMensal | currency: 'R$' }} </Strong></p>
-  <p class="text-success">Total Gastos Pagos: <strong> {{ totalPago | currency: 'R$'}}</strong></p>
+<footer class="bg-light text-dark p-2 mt-3" style="text-align: center;">
+  <p class="d-inline">Total Gastos: <Strong> {{ total | currency: 'R$' }} </Strong></p>
+  <p class="text-warning d-inline p-2">Total Gastos Mensais: <Strong> {{ totalMensal | currency: 'R$' }} </Strong></p>
+  <p class="text-success d-inline p-2">Total Gastos Pagos: <strong> {{ totalPago | currency: 'R$'}}</strong></p>
+  <p class="text-success d-inline p-2">Resto: <strong> {{ resto | currency: 'R$'}}</strong></p>
 </footer>
 
 

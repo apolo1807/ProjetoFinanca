@@ -6,7 +6,6 @@ import com.financas.project.apolo.repository.PessoaisFinancasRepository;
 import com.financas.project.apolo.repository.RendaFixaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.ReactiveTransaction;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -51,7 +51,7 @@
         <label for="dataInicio" class="form-label">Data
 
           <a tooltip="Caso a data não for inserida, será considerada a atual" class="text-info">
-            <i class="fa fa-info-circle"></i>
+            <i class="bi bi-info-circle-fill"></i>
           </a>
 
           </label>
@@ -90,7 +90,7 @@
     </div>
   </div>
   <hr>
-  <button class="btn btn-outline-success btn-sm" type="submit" [disabled]="form.invalid" *ngIf="!isEdit"> Salvar </button>
-  <button class="btn btn-outline-success btn-sm" type="submit" [disabled]="form.invalid" *ngIf="isEdit"> Atualizar </button>
-  <button class="btn btn-outline-info btn-sm" type="button" routerLink="/financas/pessoais"> Lista </button>
+  <button class="btn btn-outline-success btn-sm" type="submit" [disabled]="form.invalid" *ngIf="!isEdit"><i class="bi bi-box-arrow-down"></i> Salvar </button>
+  <button class="btn btn-outline-success btn-sm" type="submit" [disabled]="form.invalid" *ngIf="isEdit"><i class="bi bi-box-arrow-down"></i> Atualizar </button>
+  <button class="btn btn-outline-info btn-sm" type="button" routerLink="/financas/pessoais"><i class="bi bi-arrow-return-left"></i> Lista </button>
 </form>

@@ -20,16 +20,20 @@
           <td>{{ rendas.tipoRenda == "Ativa" ? rendas.ativa : rendas.passiva }}</td>
           <td>{{ rendas.valor | currency: 'R$' }}</td>
           <td>
-            <button class="btn btn-outline-warning btn-sm me-1" routerLink="{{ rendas.id }}"><i class="fa fa-edit"></i></button>
-            <button class="btn btn-outline-danger btn-sm" (click)="openModal(rendas)" data-bs-toggle="modal" data-bs-target="#openModal"><i class="fa fa-trash"></i></button>
+            <button class="btn btn-outline-warning btn-sm me-1" routerLink="{{ rendas.id }}"><i class="bi bi-pencil-square"></i></button>
+            <button class="btn btn-outline-danger btn-sm" (click)="openModal(rendas)" data-bs-toggle="modal" data-bs-target="#openModal"><i class="bi bi-trash"></i></button>
           </td>
         </tr>
       </tbody>
     </table>
-    <button class="btn btn-outline-success btn-sm" routerLink="/financas/pessoais/renda/new"> Adicionar </button>
-    <button class="btn btn-outline-info btn-sm" routerLink="/financas/pessoais"> Gasto </button>
+    <button class="btn btn-outline-success btn-sm" routerLink="/financas/pessoais/renda/new"><i class="bi bi-save"></i> Adicionar </button>
+    <button class="btn btn-outline-info btn-sm" routerLink="/financas/pessoais"><i class="bi bi-arrow-return-left"></i> Gasto </button>
   </form>
 </div>
+
+<footer class="bg-light text-dark p-2 mt-3" style="text-align: center;">
+  <p>Total Renda: <Strong> {{ totalRenda | currency: 'R$' }} </Strong></p>
+</footer>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="openModal">
   <div class="modal-dialog" role="document">

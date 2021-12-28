@@ -15,11 +15,11 @@ public class RendaFixa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "{campo.renda.obrigatorio}")
     @Column(length = 100)
     private String descricao;
 
-    @NotNull
+    @NotNull(message = "{campo.tipoRenda.obrigatorio}")
     @Column(name = "tipo_renda")
     private String tipoRenda;
 
@@ -29,7 +29,7 @@ public class RendaFixa {
     @Column
     private String passiva;
 
-    @NotNull
+    @NotNull(message = "{campo.valor.obrigatorio}")
     @Column
     private BigDecimal valor;
 }

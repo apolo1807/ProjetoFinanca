@@ -6,8 +6,8 @@
           Renda
         </div>
         <div class="card-body shadow bg-light text-dark">
-          {{ rendaFixa | currency: 'R$' }}
-          <button class="btn btn-success btn-sm float-end" routerLink="/financas/pessoais/renda/list"><i class="fa fa-edit"></i></button>
+          {{ totalRenda | currency: 'R$' }}
+          <button class="btn btn-success btn-sm float-end" routerLink="/financas/pessoais/renda/list"><i class="bi bi-pencil-square"></i></button>
         </div>
 
         <div class="card-footer text-success shadow bg-light" *ngIf="suficiente">
@@ -18,7 +18,7 @@
           <strong> Insuficiente </strong>
 
           <a tooltip="Valor dos gastos mensais é menor do que a renda" class="text-danger">
-            <i class="fa fa-info-circle"></i>
+            <i class="bi bi-info-circle-fill"></i>
           </a>
 
         </div>
@@ -32,7 +32,7 @@
         </div>
         <div class="card-body bg-light text-dark">
           R$1200,00
-          <button class="btn btn-danger btn-sm float-end"><i class="fa fa-edit"></i></button>
+          <button class="btn btn-danger btn-sm float-end"><i class="bi bi-pencil-square"></i></button>
         </div>
         <div class="card-footer shadow bg-light text-dark">
           Inadimplência

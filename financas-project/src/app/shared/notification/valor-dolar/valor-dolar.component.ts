@@ -14,7 +14,6 @@ export class ValorDolarComponent implements OnInit {
   constructor(private service: ValorDolarService) { }
 
   ngOnInit() {
-
     this.service.findDollarValue().subscribe(dolarValue => {
       this.dolar = dolarValue.USDBRL.ask;
     })
@@ -23,19 +22,13 @@ export class ValorDolarComponent implements OnInit {
   }
 
   checkDolar() {
-
     interval(60000).subscribe(() => {
-
       this.service.findDollarValue().subscribe(dolarValue => {
 
         if(this.dolar != dolarValue.USDBRL.ask) {
           this.dolar = dolarValue.USDBRL.ask;
         }
-
       })
-
     })
-
   }
-
 }

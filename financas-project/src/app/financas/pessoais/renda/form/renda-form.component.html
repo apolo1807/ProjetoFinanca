@@ -3,13 +3,24 @@
   <p class="lead bg-info p-2 text-light" style="text-align: center;"><i class="fa fa-save"></i>
   <strong> Adicione uma renda </strong></p>
 </div>
+
 <form class="container mt-5" [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="row">
+
+    <div class="alert alert-info" role="alert" *ngIf="successResponse">
+      <i class="fa fa-check-circle"></i> Salvo
+    </div>
+
     <div class="col-5">
       <div class="mt-2">
         <label for="descricao" class="form-label">Descrição</label>
         <textarea name="descricao" id="descricao" cols="70" rows="10" class="form-control"
           style="resize: none;" placeholder="Pintor..." formControlName="descricao"></textarea>
+
+        <span *ngIf="form.controls['descricao'].errors" class="text-danger mt-1" style="font-size: 10px;">
+          * Campo necessário
+        </span>
+
       </div>
     </div>
     <div class="col-5">
@@ -19,16 +30,21 @@
           <option value="Ativa">Ativa</option>
           <option value="Vitalícia">Vitalícia</option>
         </select>
+
+        <span *ngIf="form.controls['tipoRenda'].errors" class="text-danger mt-1" style="font-size: 10px;">
+          * Necessário que insira um tipo
+        </span>
+
       </div>
       <div class="mt-2" *ngIf="form.controls['tipoRenda'].value == 'Ativa'">
-        <label for="ativa" class="form-label">Ativa</label>
+        <label for="ativa" class="form-label"> <span class="text-danger"> * </span> Ativa</label>
         <select name="ativa" id="ativa" class="form-control" formControlName="ativa">
           <option value="Salário">Salário</option>
           <option value="Autônomo">Autônomo</option>
         </select>
       </div>
       <div class="mt-2" *ngIf="form.controls['tipoRenda'].value == 'Vitalícia'">
-        <label for="passiva" class="form-label">Passiva</label>
+        <label for="passiva" class="form-label"><span class="text-danger"> * </span> Passiva</label>
         <select name="passiva" id="passiva" class="form-control" formControlName="passiva">
           <option value="Mensal Vitalícia">Mensal Vitalicia</option>
           <option value="Aposentadoria">Aposentadoria</option>
@@ -37,11 +53,21 @@
       <div class="mt-2">
         <label for="valor" class="form-label">Valor</label>
         <input type="number" name="valor" id="valor" class="form-control"
-          placeholder="R$1200" formControlName="valor">
+          placeholder="R$1200" formControlName="valor" min="1">
+
+        <span *ngIf="form.controls['valor'].errors?.['min']" class="text-danger mt-1" style="font-size: 10px;">
+          * Necessário um número maior que 0
+        </span>
+
+        <span *ngIf="form.controls['valor'].errors?.['required']" class="text-danger mt-1" style="font-size: 10px;">
+          * Campo obrigatório
+        </span>
+
       </div>
     </div>
   </div>
   <hr>
-  <button class="btn btn-outline-success btn-sm"> Salvar </button>
-  <button class="btn btn-outline-info btn-sm" routerLink="/financas/pessoais/renda/list"> Lista </button>
+  <button class="btn btn-outline-success btn-sm" *ngIf="!isEdit" [disabled]="form.invalid"><i class="bi bi-box-arrow-down"></i> Salvar </button>
+  <button class="btn btn-outline-success btn-sm" *ngIf="isEdit"><i class="bi bi-box-arrow-down"></i> Atualizar </button>
+  <button class="btn btn-outline-info btn-sm" routerLink="/financas/pessoais/renda/list"><i class="bi bi-arrow-return-left"></i> Lista </button>
 </form>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppService } from 'src/app/app.service';
 import { FinancasPessoais } from '../financasPessoaisDomain';
+import { RendaListComponent } from '../renda/renda-list/renda-list.component';
 import { RendaService } from '../renda/renda.service';
 
 @Component({
@@ -11,18 +12,19 @@ import { RendaService } from '../renda/renda.service';
 
 export class AccountStaticsComponent implements OnInit {
 
-  constructor(private service: AppService) { }
+  constructor(
+    private service: AppService,
+    private rendaService: RendaService
+  ) { }
 
   rendaFixa: number;
   suficiente: boolean;
+  resto: number;
+  totalRenda: number;
 
   ngOnInit() {
-    this.getRendaFixa();
+    this.calcularTotalRenda();
     this.estadoRenda();
-  }
-
-  getRendaFixa() {
-    this.service.getFinancas().subscribe(valor => this.rendaFixa = valor[0].totalRenda);
   }
 
   estadoRenda() {
@@ -46,7 +48,7 @@ export class AccountStaticsComponent implements OnInit {
 
         })
 
-        if(financas[0].totalRenda > debito) {
+        if(this.totalRenda > debito) {
           this.suficiente = true;
         } else {
           this.suficiente = false;
@@ -54,4 +56,16 @@ export class AccountStaticsComponent implements OnInit {
     });
   }
 
+  calcularTotalRenda() {
+    this.rendaService.getRendas().subscribe(rendas => {
+
+      let valorRenda = 0;
+
+      rendas.forEach(response => {
+        valorRenda += response.valor;
+      })
+
+      this.totalRenda = valorRenda;
+    })
+  }
 }

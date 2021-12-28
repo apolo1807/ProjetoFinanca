@@ -21,6 +21,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { RendaFormComponent } from './financas/pessoais/renda/form/renda-form.component';
 import { RendaListComponent } from './financas/pessoais/renda/renda-list/renda-list.component';
 import { ValorDolarComponent } from './shared/notification/valor-dolar/valor-dolar.component';
+import { NotificationComponent } from './notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ValorDolarComponent } from './shared/notification/valor-dolar/valor-dol
     RendaFormComponent,
     RendaListComponent,
     ValorDolarComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,

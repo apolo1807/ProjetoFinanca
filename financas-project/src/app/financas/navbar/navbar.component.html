@@ -7,40 +7,21 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink="/home"><i class="fa fa-home"></i> Home</a>
+          <a class="nav-link" aria-current="page" routerLink="/home"><i class="bi bi-house-door"></i> Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Investimentos</a>
+          <a class="nav-link" href="#"><i class="bi bi-wallet"></i> Investimentos</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Finanças
+            <i class="bi bi-emoji-smile-fill"></i> Finanças
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item active" href="#">Pessoais</a></li>
+            <li><a class="dropdown-item active" href="#"><i class="bi bi-person-fill"></i> Pessoais</a></li>
           </ul>
         </li>
       </ul>
     </div>
-    <app-valor-dolar *ngIf="ativadoDolar"></app-valor-dolar>
-    <div>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa fa-bell"></i> Dólar notificação
-            </a>
-            <ul class="dropdown-menu p-1" aria-labelledby="navbarDropdown">
-              <li>
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" role="switch" (click)="ativar()" id="flexSwitchCheckChecked">
-                  <label class="form-check-label" for="flexSwitchCheckChecked"> Ativar</label>
-                </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <app-notification></app-notification>
   </div>
 </nav>

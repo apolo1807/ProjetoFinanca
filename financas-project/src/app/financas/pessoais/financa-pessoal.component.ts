@@ -1,8 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { interval } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { FinancasPessoais } from './financasPessoaisDomain';
 
@@ -20,6 +16,7 @@ export class FinancaPessoalComponent implements OnInit {
   total: number;
   totalMensal: number;
   totalPago: number;
+  resto: number;
 
   constructor(private service: AppService) {this.financaInicialize = new FinancasPessoais()}
 
@@ -42,7 +39,7 @@ export class FinancaPessoalComponent implements OnInit {
           }
 
           if(!values.isParcelado) {
-            debitoPago += values.total;
+            debitoPago += values.valor;
           }
         }
 
@@ -53,7 +50,7 @@ export class FinancaPessoalComponent implements OnInit {
           }
 
           if(!values.isParcelado) {
-            debitoPendente += values.total;
+            debitoPendente += values.valor;
           }
 
         }
@@ -64,12 +61,14 @@ export class FinancaPessoalComponent implements OnInit {
       this.totalPago = debitoPago;
       this.total = response[0].total;
       this.financas = response;
+      this.resto = response[0].totalRenda - this.totalMensal;
     })
   }
 
   declararPago(financa: FinancasPessoais) {
     financa.tipoEstadoGasto = "PAGO";
     this.service.salvar(financa).subscribe(() => {
+      this.getAllFinancas();
       this.success = true;
       setTimeout(() => {
         this.success = false;

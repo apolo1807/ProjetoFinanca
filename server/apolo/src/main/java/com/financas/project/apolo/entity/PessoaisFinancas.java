@@ -55,5 +55,5 @@ public class PessoaisFinancas {
     private BigDecimal total;
 
     @Column(name = "tipo_estado_gasto")
-    private TipoEstadoGasto tipoEstadoGasto;
+    private TipoEstadoGasto tipoEstadoGasto = TipoEstadoGasto.PENDENTE;
 }

@@ -12,11 +12,13 @@ export class RendaListComponent implements OnInit {
   rendas: Renda[] = [];
   rendasInitialize: Renda;
   rendaDelete: Renda;
+  totalRenda: number;
 
   constructor(private service: RendaService) { this.rendasInitialize = new Renda() }
 
   ngOnInit() {
     this.getAllRenda();
+    this.calcularTotalRenda();
   }
 
   getAllRenda() {
@@ -35,5 +37,16 @@ export class RendaListComponent implements OnInit {
     })
   }
 
+  calcularTotalRenda() {
+    this.service.getRendas().subscribe(rendas => {
 
+      let valorRenda = 0;
+
+      rendas.forEach(response => {
+        valorRenda += response.valor;
+      })
+
+      this.totalRenda = valorRenda;
+    })
+  }
 }

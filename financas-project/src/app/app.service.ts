@@ -18,7 +18,7 @@ export class AppService {
   }
 
   getFinancas():Observable<FinancasPessoais[]> {
-    return this.httpClient.get<FinancasPessoais[]>(`${this.apiURL}`)
+    return this.httpClient.get<FinancasPessoais[]>(`${this.apiURL}`);
   }
 
   findById(id: number):Observable<FinancasPessoais> {

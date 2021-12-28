@@ -66,7 +66,7 @@ export class PessoalFormComponent implements OnInit {
       form.get('valorParcelas')?.setValidators([Validators.required]);
     }
 
-    dataInicio?.valueChanges.subscribe(r => {
+    dataInicio?.valueChanges.subscribe(() => {
       dataInicio.setValidators([DataCurrentyYear]);
     })
 
@@ -74,7 +74,7 @@ export class PessoalFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.service.salvar(this.form.value).subscribe(response => {
+    this.service.salvar(this.form.value).subscribe(() => {
 
       if(!this.isEdit) {
         this.form.reset();
@@ -83,7 +83,7 @@ export class PessoalFormComponent implements OnInit {
       this.successResponse = true;
       setTimeout(() => {
         this.successResponse = false;
-      }, 2500)
+      }, 2500);
     });
   }
 }

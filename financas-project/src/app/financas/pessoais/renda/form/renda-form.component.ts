@@ -13,6 +13,8 @@ export class RendaFormComponent implements OnInit {
 
   form: FormGroup;
   id: number;
+  isEdit: boolean = false;
+  successResponse: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,6 +30,7 @@ export class RendaFormComponent implements OnInit {
       this.id = urlParams['id'];
       if(this.id) {
         this.service.findById(this.id).subscribe(response => {
+          this.isEdit = true;
           this.form.setValue(response);
         })
       }
@@ -55,18 +58,21 @@ export class RendaFormComponent implements OnInit {
 
     })
 
-
     return form;
   }
 
   onSubmit() {
     this.service.salvarRenda(this.form.value).subscribe(response => {
-      console.log(response);
 
-      this.form.reset();
-    }, error => {
+      if(!this.isEdit) {
+        this.form.reset();
+      }
 
-    })
+      this.successResponse = true;
+      setTimeout(() => {
+        this.successResponse = false;
+      }, 2500);
+    });
   }
 
 }
