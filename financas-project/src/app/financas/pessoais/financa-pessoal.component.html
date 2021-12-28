@@ -5,6 +5,11 @@
   <p class="lead bg-info text-light p-3 shadow" style="text-align: center;">
     <strong> Eventuais gastos </strong>
   </p>
+
+  <div class="alert alert-success" role="alert" *ngIf="success">
+    Gasto declarado pago com sucesso!
+  </div>
+
   <table class="table">
     <thead>
       <tr>
@@ -23,6 +28,15 @@
           <span *ngIf="financas.isParcelado">
             - {{ financas.valorParcelas }}x {{ financas.parcelas | currency: 'R$'}}
           </span>
+
+          <a tooltip="Gasto já foi pago" class="text-success" *ngIf="financas.tipoEstadoGasto == 'PAGO'">
+            <i class="fa fa-info-circle"></i>
+          </a>
+
+          <a tooltip="Gasto ainda não foi pago" class="text-warning" *ngIf="financas.tipoEstadoGasto == 'PENDENTE'">
+            <i class="fa fa-info-circle"></i>
+          </a>
+
         </td>
         <td>
           {{ financas.dataInicio | date:'dd/MM/yyyy' }}
@@ -33,7 +47,8 @@
         <td>{{ financas.valor | currency: 'R$' }}</td>
         <td>
           <button class="btn btn-outline-warning btn-sm me-1" routerLink="{{ financas.id }}"><i class="fa fa-edit"></i></button>
-          <button class="btn btn-outline-danger btn-sm" (click)="openModal(financas)" data-bs-toggle="modal" data-bs-target="#openModal"><i class="fa fa-trash"></i></button>
+          <button class="btn btn-outline-danger btn-sm me-1" (click)="openModal(financas)" data-bs-toggle="modal" data-bs-target="#openModal"><i class="fa fa-trash"></i></button>
+          <button class="btn btn-outline-success btn-sm" *ngIf="financas.tipoEstadoGasto == 'PENDENTE'" (click)="declararPago(financas)"> Pago </button>
         </td>
       </tr>
     </tbody>
@@ -42,7 +57,8 @@
 </form>
 <footer class="bg-light text-dark" style="text-align: center;">
   <p>Total Gastos: <Strong> {{ total | currency: 'R$' }} </Strong></p>
-  <p>Total Gastos Mensais: <Strong> {{ totalMensal | currency: 'R$' }} </Strong></p>
+  <p class="text-warning">Total Gastos Mensais: <Strong> {{ totalMensal | currency: 'R$' }} </Strong></p>
+  <p class="text-success">Total Gastos Pagos: <strong> {{ totalPago | currency: 'R$'}}</strong></p>
 </footer>
 
 

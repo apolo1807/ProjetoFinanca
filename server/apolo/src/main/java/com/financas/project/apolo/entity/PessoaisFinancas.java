@@ -1,5 +1,6 @@
 package com.financas.project.apolo.entity;
 
+import com.financas.project.apolo.TipoEnum.TipoEstadoGasto;
 import com.financas.project.apolo.repository.RendaFixaRepository;
 import com.financas.project.apolo.service.PessoaisFinancasService;
 import com.financas.project.apolo.service.RendaFixaService;
@@ -52,4 +53,7 @@ public class PessoaisFinancas {
 
     @Formula(value = "(select sum(pf.valor) from pessoais_financas pf)")
     private BigDecimal total;
+
+    @Column(name = "tipo_estado_gasto")
+    private TipoEstadoGasto tipoEstadoGasto;
 }

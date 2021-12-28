@@ -57,7 +57,7 @@ export class PessoalFormComponent implements OnInit {
       totalRenda: [''],
       dataInicio: [''],
       dataFim: [''],
-      total: ['1000'],
+      total: [''],
     });
 
     const dataInicio = form.get('dataInicio');

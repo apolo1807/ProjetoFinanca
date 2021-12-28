@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { interval } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { FinancasPessoais } from './financasPessoaisDomain';
 
@@ -13,9 +15,11 @@ export class FinancaPessoalComponent implements OnInit {
 
   financaInicialize: FinancasPessoais;
   financaDelete: FinancasPessoais;
+  success: boolean;
   financas: FinancasPessoais[] = [];
   total: number;
   totalMensal: number;
+  totalPago: number;
 
   constructor(private service: AppService) {this.financaInicialize = new FinancasPessoais()}
 
@@ -26,27 +30,51 @@ export class FinancaPessoalComponent implements OnInit {
   getAllFinancas() {
     this.service.getFinancas().subscribe(response => {
 
-      let debito = 0;
+      let debitoPendente = 0;
+      let debitoPago = 0;
 
       response.forEach(values => {
 
-        console.log(values);
+        if(values.tipoEstadoGasto == "PAGO") {
 
+          if(values.isParcelado) {
+            debitoPago += values.parcelas;
+          }
 
-        if(values.isParcelado) {
-          debito += values.parcelas;
+          if(!values.isParcelado) {
+            debitoPago += values.total;
+          }
         }
 
-        if(!values.isParcelado) {
-          debito += values.total;
+        if(values.tipoEstadoGasto == "PENDENTE") {
+
+          if(values.isParcelado) {
+            debitoPendente += values.parcelas;
+          }
+
+          if(!values.isParcelado) {
+            debitoPendente += values.total;
+          }
+
         }
 
       });
 
-      this.totalMensal = debito;
+      this.totalMensal = debitoPendente;
+      this.totalPago = debitoPago;
       this.total = response[0].total;
       this.financas = response;
     })
+  }
+
+  declararPago(financa: FinancasPessoais) {
+    financa.tipoEstadoGasto = "PAGO";
+    this.service.salvar(financa).subscribe(() => {
+      this.success = true;
+      setTimeout(() => {
+        this.success = false;
+      }, 2500)
+    });
   }
 
   openModal(financaModal: FinancasPessoais){

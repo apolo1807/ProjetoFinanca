@@ -9,5 +9,6 @@ export class FinancasPessoais {
   dataInicio: Date;
   dataFim: Date;
   totalRenda: number;
+  tipoEstadoGasto: string;
   total: number;
 }

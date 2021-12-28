@@ -1,5 +1,6 @@
 package com.financas.project.apolo.service;
 
+import com.financas.project.apolo.TipoEnum.TipoEstadoGasto;
 import com.financas.project.apolo.entity.PessoaisFinancas;
 import com.financas.project.apolo.repository.PessoaisFinancasRepository;
 import com.financas.project.apolo.utils.Fixtures;
@@ -48,6 +49,28 @@ public class PessoaisFinancasServiceTest {
         PessoaisFinancas entityWithData = service.calcularFinalParcelas(entityWithoutData);
 
         assertEquals(entityWithData.getDataInicio(), LocalDate.now());
+        assertEquals(entityWithData.getDataFim(), entityWithData.getDataInicio());
+    }
+
+    @Test
+    public void setEstadoGastoTest() {
+
+        PessoaisFinancas entity = new PessoaisFinancas();
+        entity.setDataFim(LocalDate.of(2021, 12,01));
+
+        PessoaisFinancas entity2 = new PessoaisFinancas();
+        entity2.setDataFim(LocalDate.now());
+
+        PessoaisFinancas entity3 = new PessoaisFinancas();
+        entity3.setDataFim(LocalDate.now().plusMonths(2));
+
+        PessoaisFinancas entityPaga = service.setEstadoGasto(entity);
+        PessoaisFinancas entityPendente = service.setEstadoGasto(entity2);
+        PessoaisFinancas entityPendente2 = service.setEstadoGasto(entity3);
+
+        assertEquals(entityPaga.getTipoEstadoGasto(), TipoEstadoGasto.PAGO);
+        assertEquals(entityPendente.getTipoEstadoGasto(), TipoEstadoGasto.PENDENTE);
+        assertEquals(entityPendente2.getTipoEstadoGasto(), TipoEstadoGasto.PENDENTE);
     }
 
     @Test

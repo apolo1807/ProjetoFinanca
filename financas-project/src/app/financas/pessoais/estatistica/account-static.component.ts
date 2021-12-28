@@ -33,12 +33,15 @@ export class AccountStaticsComponent implements OnInit {
 
         financas.forEach(valor => {
 
-          if(valor.isParcelado) {
-            debito += valor.parcelas;
-          }
+          if(valor.tipoEstadoGasto == "PENDENTE") {
 
-          if(!valor.isParcelado) {
-            debito += valor.valor;
+            if(valor.isParcelado) {
+              debito += valor.parcelas;
+            }
+
+            if(!valor.isParcelado) {
+              debito += valor.valor;
+            }
           }
 
         })
