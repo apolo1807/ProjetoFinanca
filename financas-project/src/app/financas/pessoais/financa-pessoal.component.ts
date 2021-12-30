@@ -10,13 +10,18 @@ import { FinancasPessoais } from './financasPessoaisDomain';
 export class FinancaPessoalComponent implements OnInit {
 
   financaInicialize: FinancasPessoais;
-  financaDelete: FinancasPessoais;
+  financaModal: FinancasPessoais;
+  modal: FinancasPessoais;
   success: boolean;
   financas: FinancasPessoais[] = [];
   total: number;
   totalMensal: number;
   totalPago: number;
+  numeroParcelas: any = [];
+  parcelasAntecipadas: number;
   resto: number;
+  suficiente: boolean;
+  print: any;
 
   constructor(private service: AppService) {this.financaInicialize = new FinancasPessoais()}
 
@@ -62,6 +67,10 @@ export class FinancaPessoalComponent implements OnInit {
       this.total = response[0].total;
       this.financas = response;
       this.resto = response[0].totalRenda - this.totalMensal;
+
+      if(this.resto > response[0].totalRenda) {
+        this.suficiente = true;
+      }
     })
   }
 
@@ -76,14 +85,45 @@ export class FinancaPessoalComponent implements OnInit {
     });
   }
 
+  calcularNumeroParcelas(financa: FinancasPessoais) {
+
+    let parcelasArray = [];
+
+    for(let i = 0; i < financa.valorParcelas; i++) {
+      parcelasArray.push(i);
+    }
+
+    this.numeroParcelas = parcelasArray;
+  }
+
+  adiantarParcelas(financa: FinancasPessoais) {
+    financa.valorParcelas -=  this.parcelasAntecipadas;
+    this.service.salvar(financa).subscribe(() => {
+      this.getAllFinancas();
+    })
+  }
+
   openModal(financaModal: FinancasPessoais){
-    this.financaDelete = financaModal;
+    this.modal = financaModal;
+  }
+
+  openModalAdiantar(financaModal: FinancasPessoais) {
+    this.financaModal = financaModal;
+    this.calcularNumeroParcelas(financaModal);
   }
 
   deletarFinanca(financaDelete: any) {
     this.service.deleteFinanca(financaDelete).subscribe(() => {
       this.getAllFinancas();
     });
+  }
+
+  onPrintView(idPrint: any) {
+    let content = document.getElementById(idPrint)?.innerHTML;
+    let open = window.open();
+    open?.document.write(content? content : '');
+    open?.print();
+    open?.close();
   }
 
 }

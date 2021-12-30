@@ -35,8 +35,10 @@ public class PessoaisFinancasService {
 
     public PessoaisFinancas getValorParcelado(PessoaisFinancas entity) {
 
-        entity.setParcelas(entity.getValor()
-                .divide(BigDecimal.valueOf(entity.getValorParcelas()), 2, RoundingMode.HALF_UP));
+        if(Objects.isNull(entity.getParcelas())) {
+            entity.setParcelas(entity.getValor()
+                    .divide(BigDecimal.valueOf(entity.getValorParcelas()), 2, RoundingMode.HALF_UP));
+        }
 
         return entity;
     }

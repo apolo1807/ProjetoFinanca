@@ -26,7 +26,7 @@
       </span>
 
       <div class="mt-4 col">
-        <label for="descricao">Descrição</label>
+        <label for="descricao" class="mb-1">Descrição</label>
         <textarea name="descricao" id="descricao"
           cols="70" rows="10" formControlName="descricao" style="resize: none;" class="form-control" maxlength="50" placeholder="ex: Ver o filme..."></textarea>
       </div>
@@ -34,9 +34,13 @@
     </div>
     <div class="col-6">
 
-      <div class="form-group">
+      <div *ngIf="isEdit" class="mt-4 border-bottom">
+        <span class="text-danger fs-6">Não é possível editar valores</span>
+      </div>
+
+      <div class="form-group" *ngIf="!isEdit">
         <label for="valor" class="form-label">Valor <span class="text-danger"> * </span> </label>
-        <input type="number" name="valor" id="valor" class="form-control" placeholder="R$" formControlName="valor" min="1" max="5000">
+        <input type="number" name="valor"  id="valor" class="form-control" placeholder="R$" formControlName="valor" min="1" max="5000">
       </div>
 
       <span *ngIf="form.controls['valor'].errors?.['required']" class="text-danger mt-1" style="font-size: 10px;">
@@ -47,7 +51,7 @@
         Valor deve ser um número maior que R$1 e menor que R$5000,00
       </span>
 
-      <div class="mt-5">
+      <div class="mt-5" *ngIf="!isEdit">
         <label for="dataInicio" class="form-label">Data
 
           <a tooltip="Caso a data não for inserida, será considerada a atual" class="text-info">
@@ -61,7 +65,7 @@
         </div>
       </div>
 
-      <div class="form-check mt-3">
+      <div class="form-check mt-3" *ngIf="!isEdit">
         <input type="checkbox" name="isParcelado" class="form-check-input" formControlName="isParcelado">
         <label for="isParcelado" class="form-check-label"> Parcelas?</label>
       </div>
