@@ -1,0 +1,73 @@
+<navbar-financa></navbar-financa>
+<div>
+  <p class="lead bg-info text-light p-3 shadow" style="text-align: center;">
+    <strong> Gastos fixos </strong>
+  </p>
+</div>
+
+<div class="alert alert-danger" role="alert" *ngIf="deletado">
+  Gasto fixo deletado!
+</div>
+
+<div id="bar">
+  <form class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Descrição</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Fidelidade</th>
+          <th scope="col">Parcelas</th>
+          <th scope="col">Data Inicio / Data Fim </th>
+          <th scope="col">Gasto</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let gastos of gastos | paginate: { itemsPerPage: page.size,currentPage: this.current, totalItems: page.totalElements }">
+        <tr>
+          <td> {{ gastos.descricao | maxDescribeLenght }} </td>
+          <td>{{ gastos.tipoGasto }}</td>
+          <td>{{ gastos.fidelidade? 'Sim' : 'Não' }} - {{ gastos.tempoFidelidade | date:'dd/MM/yyyy'}}</td>
+          <td>{{ gastos.valores.isParcelado? 'Sim' : 'Não' }} - {{ gastos.valores.valorParcelas }}x {{ gastos.valores.parcelas | currency: 'R$' }}</td>
+          <td>{{ gastos.dataInicio | date:'dd/MM/yyyy'}} - {{ gastos.dataFim | date:'dd/MM/yyyy'}}</td>
+          <td>{{ gastos.valores.valor| currency: 'R$' }}</td>
+          <td>
+            <button class="btn btn-outline-warning btn-sm me-1" routerLink="{{ gastos.id }}"><i class="bi bi-pencil-square"></i></button>
+            <button class="btn btn-outline-danger btn-sm" (click)="openModal(gastos)" data-bs-toggle="modal" data-bs-target="#openModal"><i class="bi bi-trash"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls
+      (pageChange)="changePage($event)"
+      [responsive]="true"
+      previousLabel="Anterior"
+      nextLabel="Próximo"
+    ></pagination-controls>
+    <button class="btn btn-outline-success btn-sm me-1" routerLink="/financas/pessoais/gastos/new"><i class="bi bi-save"></i> Adicionar </button>
+    <button class="btn btn-outline-info btn-sm" routerLink="/financas/pessoais"><i class="bi bi-arrow-return-left"></i> Gasto </button>
+  </form>
+</div>
+
+<footer class="bg-light text-dark p-2 mt-3 fixed-bottom" style="text-align: center;">
+  <p class="d-inline">Total Gastos: <Strong> {{ totalGasto | currency: 'R$' }} </Strong></p>
+  <p class="d-inline p-2">Total Mensal: <strong>{{ totalMensal | currency: 'R$' }}</strong></p>
+</footer>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="openModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" *ngIf="gastoModal">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ gastoModal.tipoGasto }} - {{gastoModal.descricao}}</h5>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="lead">Deseja realmente deletar este gasto?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" (click)="deletarGasto(gastoModal)" data-bs-dismiss="modal">Deletar</button>
+      </div>
+  </div>
+</div>
+

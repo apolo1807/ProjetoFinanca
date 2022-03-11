@@ -1,8 +1,10 @@
 <navbar-financa></navbar-financa>
 <div>
-  <img src="./../../../../../assets/renda.jpg" class="img-fluid">
+  <p class="lead bg-info text-light p-3 shadow" style="text-align: center;">
+    <strong> Renda </strong>
+  </p>
 </div>
-<div id="bar">
+<div>
   <form class="container">
     <table class="table">
       <thead>
@@ -13,9 +15,9 @@
           <th scope="col">Valor</th>
         </tr>
       </thead>
-      <tbody *ngFor="let rendas of rendas">
+      <tbody *ngFor="let rendas of rendas | paginate: { itemsPerPage: page.size,currentPage: this.current, totalItems: page.totalElements }">
         <tr>
-          <td> {{ rendas.descricao }} </td>
+          <td> {{ rendas.descricao | maxDescribeLenght}} </td>
           <td>{{ rendas.tipoRenda }}</td>
           <td>{{ rendas.tipoRenda == "Ativa" ? rendas.ativa : rendas.passiva }}</td>
           <td>{{ rendas.valor | currency: 'R$' }}</td>
@@ -26,12 +28,18 @@
         </tr>
       </tbody>
     </table>
+    <pagination-controls
+      (pageChange)="changePage($event)"
+      [responsive]="true"
+      previousLabel="Anterior"
+      nextLabel="Próximo"
+    ></pagination-controls>
     <button class="btn btn-outline-success btn-sm" routerLink="/financas/pessoais/renda/new"><i class="bi bi-save"></i> Adicionar </button>
     <button class="btn btn-outline-info btn-sm" routerLink="/financas/pessoais"><i class="bi bi-arrow-return-left"></i> Gasto </button>
   </form>
 </div>
 
-<footer class="bg-light text-dark p-2 mt-3" style="text-align: center;">
+<footer class="bg-light text-dark p-2 mt-3 fixed-bottom" style="text-align: center;">
   <p>Total Renda: <Strong> {{ totalRenda | currency: 'R$' }} </Strong></p>
 </footer>
 

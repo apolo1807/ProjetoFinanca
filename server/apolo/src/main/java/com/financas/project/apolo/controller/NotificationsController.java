@@ -5,6 +5,8 @@ import com.financas.project.apolo.entity.PessoaisFinancas;
 import com.financas.project.apolo.repository.NotificationsRepository;
 import com.financas.project.apolo.repository.PessoaisFinancasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,6 +22,7 @@ public class NotificationsController {
     private NotificationsRepository repository;
 
     @PostMapping
+    @CacheEvict(value = "notifications")
     public Notifications save(@RequestBody @Valid Notifications notifications) {
         return repository.save(notifications);
     }
@@ -32,6 +35,7 @@ public class NotificationsController {
     }
 
     @GetMapping
+    @Cacheable(value = "notifications")
     public List<Notifications> getNotifications() {
         return repository.findAll();
     }

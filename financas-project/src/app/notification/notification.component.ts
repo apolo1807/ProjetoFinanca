@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { NotificationsService } from './notification.service';
-import { NotificationModel } from './notifications.model';
+import { NotificationsService } from './shared/notification.service';
+import { NotificationModel } from './shared/notifications.model';
 
 @Component({
   selector: 'app-notification',

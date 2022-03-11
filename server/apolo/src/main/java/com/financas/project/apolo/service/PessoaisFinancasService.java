@@ -21,58 +21,33 @@ public class PessoaisFinancasService {
     @Autowired
     private RendaFixaRepository rendaRepository;
 
+    @Autowired
+    private PessoaisCalculosService calculosService;
+
     public PessoaisFinancas intitialize(PessoaisFinancas entity) {
 
-        if(entity.getIsParcelado()) {
-            getValorParcelado(entity);
+        if (entity.getValores().getIsParcelado()) {
+            setValorParcelado(entity);
         }
 
-        calcularFinalParcelas(entity);
+        calculosService.calcularFinalParcelas(entity);
         setEstadoGasto(entity);
 
         return repository.save(entity);
     }
 
-    public PessoaisFinancas getValorParcelado(PessoaisFinancas entity) {
-
-        if(Objects.isNull(entity.getParcelas())) {
-            entity.setParcelas(entity.getValor()
-                    .divide(BigDecimal.valueOf(entity.getValorParcelas()), 2, RoundingMode.HALF_UP));
-        }
-
-        return entity;
+    public PessoaisFinancas setValorParcelado(PessoaisFinancas entity) {
+        return entity.setValorParcelado(entity);
     }
 
     public PessoaisFinancas setEstadoGasto(PessoaisFinancas entity) {
-
-        if(Objects.isNull(entity.getId())) {
-            if (entity.getDataFim().isBefore(LocalDate.now())) {
-                entity.setTipoEstadoGasto(TipoEstadoGasto.PAGO);
-            } else {
-                entity.setTipoEstadoGasto(TipoEstadoGasto.PENDENTE);
-            }
-        }
-
-        return entity;
+        return entity.setEstadoGasto(entity);
     }
 
-    public PessoaisFinancas calcularFinalParcelas(PessoaisFinancas entity) {
-
-        if(Objects.isNull(entity.getDataInicio())) {
-            entity.setDataInicio(LocalDate.now());
-        }
-
-        if(!entity.getIsParcelado()) {
-            entity.setDataFim(entity.getDataInicio());
-        }
-
-        if(entity.getIsParcelado()) {
-
-            LocalDate dataInicio = entity.getDataInicio();
-            Integer parcelas = entity.getValorParcelas();
-            entity.setDataFim(dataInicio.plusMonths(parcelas));
-        }
-
-        return entity;
+    public PessoaisFinancas declararPago(PessoaisFinancas entity) throws Exception {
+        entity.declararPago(entity);
+        calculosService.calculoValores();
+        return repository.save(entity);
     }
+
 }

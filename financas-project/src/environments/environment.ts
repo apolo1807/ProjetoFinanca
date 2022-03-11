@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
-  apiPessoaisURL: '/api/financas/pessoais',
+  apiPessoaisURL: '/api/financas-pessoais',
   apiRendaURL: '/api/renda',
-  apiNotifications: '/api/notifications'
+  apiNotifications: '/api/notifications',
+  apiGastoURL: '/api/gastos'
 };

@@ -10,9 +10,9 @@ public class Fixtures {
     public static PessoaisFinancas createPessoaisFinancas(Long id) {
         PessoaisFinancas entity = new PessoaisFinancas();
         entity.setId(id);
-        entity.setIsParcelado(Boolean.TRUE);
-        entity.setValor(BigDecimal.valueOf(1200L));
-        entity.setValorParcelas(2);
+        entity.getValores().setIsParcelado(Boolean.TRUE);
+        entity.getValores().setParcelas(BigDecimal.valueOf(1200L));
+        entity.getValores().setValorParcelas(2);
         entity.setDataInicio(LocalDate.of(2018, 01, 31));
         entity.setGasto("Teste");
 

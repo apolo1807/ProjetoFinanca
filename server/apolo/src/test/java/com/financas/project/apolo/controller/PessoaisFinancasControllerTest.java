@@ -14,6 +14,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -52,13 +54,13 @@ public class PessoaisFinancasControllerTest {
     }
 
     @Test
-    public void verifyFindAll() throws Exception {
+    public void verifyFindAll(Pageable pageable) throws Exception {
 
         List<PessoaisFinancas> entitys = new ArrayList<>();
         entitys.add(Fixtures.createPessoaisFinancas(1L));
         entitys.add(Fixtures.createPessoaisFinancas(2L));
 
-        when(controller.getFinancas()).thenReturn(entitys);
+        when(controller.getFinancas(pageable)).thenReturn((Page<PessoaisFinancas>) entitys);
 
         mockMvc.perform(get("/api/financas/pessoais"))
                 .andExpect(status().isOk());

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { AppService } from 'src/app/app.service';
-import { FinancasPessoais } from '../financasPessoaisDomain';
-import { RendaListComponent } from '../renda/renda-list/renda-list.component';
+import { AppService } from 'src/app/financas/pessoais/financas/shared/financas-pessoais.service';
+import { CalculoService } from 'src/app/shared/calculo/calculo.service';
+import { GastosService } from '../gastos/shared/gastos.service';
 import { RendaService } from '../renda/renda.service';
 
 @Component({
@@ -12,60 +11,31 @@ import { RendaService } from '../renda/renda.service';
 
 export class AccountStaticsComponent implements OnInit {
 
-  constructor(
-    private service: AppService,
-    private rendaService: RendaService
-  ) { }
+  constructor(private calculoService: CalculoService) { }
 
-  rendaFixa: number;
   suficiente: boolean;
   resto: number;
   totalRenda: number;
+  totalGasto: number;
+  rendaFixa: number;
 
   ngOnInit() {
-    this.calcularTotalRenda();
-    this.estadoRenda();
+    this.gerarEstatistica();
   }
 
-  estadoRenda() {
+  gerarEstatistica() {
+    this.calculoService.getCalculoValores().subscribe(calculos => {
 
-    this.service.getFinancas().subscribe(financas => {
+      if(calculos.renda > calculos.gasto + calculos.totalMensal) {
+        this.suficiente = true;
+      } else {
+        this.suficiente = false;
+      }
 
-        let debito = 0;
-
-        financas.forEach(valor => {
-
-          if(valor.tipoEstadoGasto == "PENDENTE") {
-
-            if(valor.isParcelado) {
-              debito += valor.parcelas;
-            }
-
-            if(!valor.isParcelado) {
-              debito += valor.valor;
-            }
-          }
-
-        })
-
-        if(this.totalRenda > debito) {
-          this.suficiente = true;
-        } else {
-          this.suficiente = false;
-        }
+      this.totalRenda = calculos.renda;
+      this.totalGasto = calculos.gasto;
     });
   }
 
-  calcularTotalRenda() {
-    this.rendaService.getRendas().subscribe(rendas => {
 
-      let valorRenda = 0;
-
-      rendas.forEach(response => {
-        valorRenda += response.valor;
-      })
-
-      this.totalRenda = valorRenda;
-    })
-  }
 }

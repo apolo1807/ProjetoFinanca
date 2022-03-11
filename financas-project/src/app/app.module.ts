@@ -9,12 +9,11 @@ import { ChartCriptomoedaComponent } from './home-page/charts/crypto/charts-crip
 import { AccountStaticsComponent } from './financas/pessoais/estatistica/account-static.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { NavbarComponent } from './home-page/navbar/navbar.component';
-import { FinancaPessoalComponent } from './financas/pessoais/financa-pessoal.component';
 import { FinancaEmpresarialComponent } from './financas/empresarial/financa-empresarial.component';
 import { NavbarFinancaComponent } from './financas/navbar/navbar.component';
-import { PessoalFormComponent } from './financas/pessoais/form/pessoal-form.component';
+import { PessoalFormComponent } from './financas/pessoais/financas/form/pessoal-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from './app.service';
+import { AppService } from './financas/pessoais/financas/shared/financas-pessoais.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PipeModule } from './shared/Validators/pipe.module';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -22,6 +21,12 @@ import { RendaFormComponent } from './financas/pessoais/renda/form/renda-form.co
 import { RendaListComponent } from './financas/pessoais/renda/renda-list/renda-list.component';
 import { ValorDolarComponent } from './shared/notification/valor-dolar/valor-dolar.component';
 import { NotificationComponent } from './notification/notification.component';
+import { GastosComponent } from './financas/pessoais/gastos/gastos-list/gastos.component';
+import { GastosFormComponent } from './financas/pessoais/gastos/form/gastos-form.component';
+import { FinancaPessoalComponent } from './financas/pessoais/financas/list/financa-pessoal.component';
+import { ValoresComponent } from './common/valores/valores.component';
+import { ValoresModule } from './common/valores/valores.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -39,18 +44,22 @@ import { NotificationComponent } from './notification/notification.component';
     RendaListComponent,
     ValorDolarComponent,
     NotificationComponent,
+    GastosComponent,
+    GastosFormComponent,
   ],
   imports: [
     BrowserModule,
+    NgxPaginationModule,
     TooltipModule.forRoot(),
     AppRoutingModule,
     NgChartsModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    PipeModule
+    PipeModule,
+    ValoresModule,
   ],
-  providers: [AppService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,3 +6,15 @@ export class Renda {
   passiva: string;
   valor: any;
 }
+
+export class Page {
+  content: Array<Renda>;
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  size: number;
+  number: number;
+  sort?: any;
+  numberOfElements: number;
+  first: boolean;
+}

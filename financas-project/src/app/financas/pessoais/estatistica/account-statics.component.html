@@ -31,11 +31,21 @@
           Gastos fixos
         </div>
         <div class="card-body bg-light text-dark">
-          R$1200,00
-          <button class="btn btn-danger btn-sm float-end"><i class="bi bi-pencil-square"></i></button>
+          {{ totalGasto | currency: 'R$'}}
+          <button class="btn btn-danger btn-sm float-end" routerLink="/financas/pessoais/gastos/list"><i class="bi bi-pencil-square"></i></button>
         </div>
-        <div class="card-footer shadow bg-light text-dark">
-          Inadimplência
+
+        <div class="card-footer text-success shadow bg-light" *ngIf="suficiente">
+          <strong> Suficiente </strong>
+        </div>
+
+        <div class="card-footer text-danger shadow bg-light" *ngIf="!suficiente">
+          <strong> Possivelmente inadimplente </strong>
+
+          <a tooltip="Valor dos gastos fixos é maior do que a renda" class="text-danger">
+            <i class="bi bi-info-circle-fill"></i>
+          </a>
+
         </div>
       </div>
     </div>

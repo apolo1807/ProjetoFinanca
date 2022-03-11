@@ -27,16 +27,18 @@ public class PessoaisFinancasServiceTest {
 
     @InjectMocks
     private PessoaisFinancasService service;
+    @InjectMocks
+    private PessoaisCalculosService calculo;
     @Mock
     private PessoaisFinancasRepository repository;
 
     @Test
     public void getParcelasTest() {
 
-        PessoaisFinancas valorTest = service.getValorParcelado(Fixtures
+        PessoaisFinancas valorTest = service.setValorParcelado(Fixtures
                 .createPessoaisFinancas(1L));
 
-        assertEquals(valorTest.getParcelas(), BigDecimal.valueOf(600L));
+        assertEquals(valorTest.getValores().getParcelas(), BigDecimal.valueOf(600L));
     }
 
     @Test
@@ -44,9 +46,9 @@ public class PessoaisFinancasServiceTest {
 
         PessoaisFinancas entityWithoutData = new PessoaisFinancas();
         entityWithoutData.setId(1L);
-        entityWithoutData.setValor(BigDecimal.TEN);
+        entityWithoutData.getValores().setValor(BigDecimal.TEN);
 
-        PessoaisFinancas entityWithData = service.calcularFinalParcelas(entityWithoutData);
+        PessoaisFinancas entityWithData = calculo.calcularFinalParcelas(entityWithoutData);
 
         assertEquals(entityWithData.getDataInicio(), LocalDate.now());
         assertEquals(entityWithData.getDataFim(), entityWithData.getDataInicio());
@@ -77,7 +79,7 @@ public class PessoaisFinancasServiceTest {
     public void calcularFinalParcelasWithDataTest() {
 
         PessoaisFinancas entity = Fixtures.createPessoaisFinancas(1L);
-        service.calcularFinalParcelas(entity);
+        calculo.calcularFinalParcelas(entity);
 
         assertEquals(entity.getDataFim(), LocalDate.of(2018, 03, 31));
     }

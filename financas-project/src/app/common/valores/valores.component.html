@@ -1,0 +1,33 @@
+<form [formGroup]="form" class="mt-2">
+
+  <div class="form-group">
+    <label for="valor" class="form-label">Valor <span class="text-danger"> * </span> </label>
+    <input type="number" name="valor"  id="valor" class="form-control" placeholder="R$" formControlName="valor" min="1" max="5000">
+  </div>
+
+  <span *ngIf="form.controls['valor'].errors?.['required']" class="text-danger mt-1" style="font-size: 10px;">
+    Campo obrigatório
+  </span>
+
+  <span *ngIf="form.controls['valor'].errors?.['max'] || form.controls['valor'].errors?.['min']" class="text-danger mt-1" style="font-size: 10px;">
+    Valor deve ser um número maior que R$1 e menor que R$5000,00
+  </span>
+
+  <div class="form-check mt-3">
+    <input type="checkbox" name="isParcelado" class="form-check-input" formControlName="isParcelado">
+    <label for="isParcelado" class="form-check-label"> Parcelas?</label>
+  </div>
+
+  <div class="form-group" *ngIf="this.form.value.isParcelado">
+    <hr>
+    <label for="valorParcelas" class="form-label">Valor das parcelas <span class="text-danger"> * </span></label>
+    <select class="form-select form-select-sm" formControlName="valorParcelas">
+      <option *ngFor="let parcelas of escolhido" [value]="parcelas.charAt(0)">{{ parcelas }}</option>
+    </select>
+
+    <span *ngIf="form.controls['valorParcelas'].pristine" class="text-danger mt-1" style="font-size: 10px;">
+      Quando se opta por parcelas, a quantidade deve ser inserida!
+    </span>
+  </div>
+
+</form>

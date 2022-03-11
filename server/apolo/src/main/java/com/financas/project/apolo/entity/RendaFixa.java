@@ -16,7 +16,7 @@ public class RendaFixa {
     private Long id;
 
     @NotEmpty(message = "{campo.renda.obrigatorio}")
-    @Column(length = 100)
+    @Column
     private String descricao;
 
     @NotNull(message = "{campo.tipoRenda.obrigatorio}")

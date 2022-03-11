@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Renda } from './renda-model';
+import { Page, Renda } from './renda-model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,10 @@ export class RendaService {
 
   getRendas():Observable<Renda[]> {
     return this.httpClient.get<Renda[]>(`${this.apiRenda}`);
+  }
+
+  getRendasPageable(page: number, size: number):Observable<Page> {
+    return this.httpClient.get<Page>(`${this.apiRenda}?page=${page}&size=${size}`);
   }
 
   findById(id: number):Observable<Renda> {

@@ -17,7 +17,6 @@ public class RendaFixaService {
     private PessoaisFinancasService service;
 
     public RendaFixa initialize(RendaFixa renda) {
-
         return repository.save(renda);
     }
 }

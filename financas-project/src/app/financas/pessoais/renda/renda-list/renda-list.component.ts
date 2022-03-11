@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Renda } from '../renda-model';
+import { CalculoService } from 'src/app/shared/calculo/calculo.service';
+import { Page, Renda } from '../renda-model';
 import { RendaService } from '../renda.service';
 
 @Component({
@@ -13,18 +14,29 @@ export class RendaListComponent implements OnInit {
   rendasInitialize: Renda;
   rendaDelete: Renda;
   totalRenda: number;
+  current: number;
+  page: Page = {} as Page;
 
-  constructor(private service: RendaService) { this.rendasInitialize = new Renda() }
+  constructor(
+    private service: RendaService,
+    private calculoService: CalculoService) { this.rendasInitialize = new Renda() }
 
   ngOnInit() {
-    this.getAllRenda();
+    this.getAllRenda(this.current);
     this.calcularTotalRenda();
   }
 
-  getAllRenda() {
-    this.service.getRendas().subscribe(response => {
-      this.rendas = response;
+  getAllRenda(current: number) {
+    this.service.getRendasPageable(current, 5).subscribe(response => {
+      this.page = response;
+      this.rendas = response.content;
     })
+  }
+
+  changePage(event: any) {
+    this.page.number = event;
+    this.current = this.page.number;
+    this.getAllRenda(this.page.number - 1);
   }
 
   openModal(rendaModal: Renda){
@@ -33,20 +45,16 @@ export class RendaListComponent implements OnInit {
 
   deletarRenda(renda: any) {
     this.service.delete(renda).subscribe(() => {
-      this.getAllRenda();
+      if(this.page.content.length == 1) {
+        this.current = 0;
+      }
+      this.getAllRenda(this.current);
     })
   }
 
   calcularTotalRenda() {
-    this.service.getRendas().subscribe(rendas => {
-
-      let valorRenda = 0;
-
-      rendas.forEach(response => {
-        valorRenda += response.valor;
-      })
-
-      this.totalRenda = valorRenda;
-    })
+    this.calculoService.getCalculoValores().subscribe(calculos => {
+      this.totalRenda = calculos.renda;
+    });
   }
 }
